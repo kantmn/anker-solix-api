@@ -8,6 +8,10 @@ Map container Dir /app to your local path where the anker-solix-api is available
 
 The container will run script.py inside on startup
 
-make sure you have a script like this or similar https://github.com/user-attachments/files/17829418/api_2_prometheus_webservice.txt
+make sure you have a script like this or similar to the script.py in this repo
 
 you may have to change the paths inside the script to /app to work
+
+the script above runs a webserver under port 5000
+
+using http://ip:5000/metrics you can retrieve data from the anker solix api and use this metrics inside prometheus / grafana
