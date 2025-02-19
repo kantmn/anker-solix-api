@@ -12,10 +12,12 @@ docker pull ghcr.io/kantmn/anker-solix-docker-api:arm64
 
 Map path from container 
 > /app
+
 to your local path where the anker-solix-api is available
 
 The container will launch the file 
 > script.py
+
 inside the /app path on startup.
 
 An example for this script is inside this repo, adjust it to your needs
