@@ -39,7 +39,7 @@ ANKER_SOLIX_DUID = "APCGQ80E22600912_" # avoids the solix uids to be part of the
 ANKER_SOLIX_SITE_REFRESH_WAITING = 8 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
 ANKER_SOLIX_DEVICE_REFRESH_WAITING = 8 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
 ANKER_SOLIX_ENERGYSTATS_REFRESH_WAITING = 60 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
-WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?lat=48&lon=11&appid=YOUR TOKEN"
+WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?lat=XX&lon=XX&appid=YOUR TOKEN"
 WEATHER_API_REFRESH_WAITING = 60 # every 60s refresh weather from api, get temps, clouds, rain etc, 60s is for free
 LOOP_API_SLEEP_WAITING = 10 # sleep timer to avoid high cpu load
 LOOP_API_DEEPSLEEP_WAITING = 60 # sleep timer if solix goes into sleep mode normally arround 10%, slow down calls as api will not respond with new data anyway
