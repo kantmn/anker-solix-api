@@ -105,11 +105,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Create and push multi-arch manifest
         run: |
+          # Create manifest for latest
           docker manifest create ghcr.io/${{ github.repository }}:latest \
             --amend ghcr.io/${{ github.repository }}:amd64-latest \
             --amend ghcr.io/${{ github.repository }}:arm64-latest
           docker manifest push ghcr.io/${{ github.repository }}:latest
 
+          # Create manifest for version tag (e.g., v0.1.3)
           docker manifest create ghcr.io/${{ github.repository }}:${{ github.ref_name }} \
             --amend ghcr.io/${{ github.repository }}:amd64-latest \
             --amend ghcr.io/${{ github.repository }}:arm64-latest
