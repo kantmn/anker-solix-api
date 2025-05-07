@@ -14,6 +14,7 @@ if you want to use fixed version use
  
 ``
 docker pull ghcr.io/kantmn/anker-solix-api:vMajor.Minor.Patch
+
 docker pull ghcr.io/kantmn/anker-solix-api:v1.2.3.
 ``
 
