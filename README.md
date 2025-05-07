@@ -4,10 +4,9 @@ This docker provides an http service under port http://ip:5000/metrics
 
 
 # docker container setup
-pull the container as needed, there are currently two tags available for amd64/intel64 and arm64
+pull the container as needed, there are two plattforms (amd64/arm64) available as tags (latest/or yyyy-mm-dd) available.
 ``
-docker pull ghcr.io/kantmn/anker-solix-docker-api:amd64
-docker pull ghcr.io/kantmn/anker-solix-docker-api:arm64
+docker pull ghcr.io/kantmn/anker-solix-api:latest
 ``
 
 Map path from container 
