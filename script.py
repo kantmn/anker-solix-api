@@ -71,12 +71,15 @@ import sys
 
 from aiohttp import ClientSession
 from aiohttp.client_exceptions import ClientError
-from api import api, errors  # pylint: disable=no-name-in-module
-from api.apitypes import (  # pylint: disable=no-name-in-module
+
+# Add the anker_solix_api_latest directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'anker_api')))
+from anker_api.api import api, errors  # pylint: disable=no-name-in-module
+from anker_api.api.apitypes import (  # pylint: disable=no-name-in-module
     SolarbankRatePlan,
     SolarbankUsageMode,
 )
-import common
+import anker_api.common as common
 
 # initial cleaning logs
 def delete_old_logs(directory, days=LOG_RETENTION_TIME):
@@ -123,8 +126,8 @@ _LOGGER: logging.Logger = logging.getLogger(__name__)
 CONSOLE: logging.Logger = common.CONSOLE
 
 # Set up the log filename with the current date
-log_file = f"{datetime.now().strftime('%Y-%m-%d')}.log"
-setup_logger(log_file)
+# log_file = f"{datetime.now().strftime('%Y-%m-%d')}.log"
+# setup_logger(log_file)
 
 def clearscreen():
     """Clear the terminal screen."""
@@ -141,15 +144,26 @@ def json_to_prometheus(data, masterkey=""):
     # Regex pattern to match UUIDs followed by an underscore
     pattern = r"[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}_"
 
-    # Remove matches
+    # Remove matches for guids
     masterkey = re.sub(pattern, "", masterkey)
 
-    if ANKER_SOLIX_DUID in masterkey:
-        masterkey = masterkey.replace(ANKER_SOLIX_DUID, "")
+    # Regex pattern to match anker solix uids followed by an underscore
+    ankerPattern = r"_[\dA-Z]{16}"
 
     if isinstance(data, dict):
         for metric_name, metric_values in data.items():
-            parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}')}"
+            parsed_line = ""
+            if re.search(ankerPattern, masterkey):
+                labels = '{device_sn="'+data.get("device_sn", "")+'", alias="'+data.get("alias", "")+'", type="'+data.get("type", "")+'", status="'+data.get("status_desc", "")+'"}'
+
+                # remove the base key from anker solix bank
+                parsed_line = f"{json_to_prometheus(metric_values, f'{re.sub(ankerPattern, "", masterkey)}_{metric_name}'+labels)}"
+                # if data.get("type", "") == 'solarbank':
+                    # parsed_line = f"{json_to_prometheus(metric_values, f'{re.sub(ankerPattern, "", masterkey)}_{metric_name}'+labels)}"
+                # else:
+                    # parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}'+labels)}"
+            else:
+                parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}')}"
 
             if "strange entry" in parsed_line:
                 parsed_line = "# " + parsed_line
@@ -300,11 +314,43 @@ async def main() -> None:
                     try:
             #            clearscreen()
                         # Set up the log filename with the current date
-                        log_file = f"{datetime.now().strftime('%Y-%m-%d')}.log"
-                        setup_logger(log_file)
+                        # log_file = f"{datetime.now().strftime('%Y-%m-%d')}.log"
+                        # setup_logger(log_file)
 
                         current_unixtime = int(time.time())
                         now = datetime.now().astimezone()
+
+                        if next_dev_refr <= now:
+                            CONSOLE.info(now.isoformat()+": Running device details refresh...")
+                            await myapi.update_device_details()
+
+                            with open('metrics_device_details.json', 'w') as jsonfile:
+                                deviceResponse = myapi.devices
+                                json.dump(deviceResponse,jsonfile)
+
+                                url = "http://signal-cli-rest-api:8080/v2/send"
+                                headers = {
+                                    "Accept": "application/json",
+                                    "Content-Type": "application/json"
+                                }
+                                data = {
+                                    "base64_attachments": [],
+                                    "message": "BATTERY ALMOST FULL / WASTING SOLAR > 100w",
+                                    "number": "+4916091258234",
+                                    "recipients": ["+491736921693"]
+                                }
+
+#                                response = requests.post(url, json=json.dumps(data), headers=headers)
+#                                CONSOLE.info(now.isoformat()+": Signal response "+ str(response.status_code)+" "+response.text)
+
+                        if next_site_refr <= now:
+                            CONSOLE.info(now.isoformat()+": Running site refresh...")
+                            await myapi.update_sites()
+
+                            with open('metrics_sites.json', 'w') as jsonfile:
+                                siteResponse = myapi.sites
+                                json.dump(siteResponse,jsonfile)
+                            next_site_refr = now + timedelta(seconds=ANKER_SOLIX_SITE_REFRESH_WAITING)
 
                         if next_weather_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running weather refresh...")
@@ -317,22 +363,7 @@ async def main() -> None:
                             sunrise = data_weather['sys']['sunrise']
                             sunset = data_weather['sys']['sunset']
 
-                        if next_site_refr <= now:
-                            CONSOLE.info(now.isoformat()+": Running site refresh...")
-                            await myapi.update_sites()
-
-                            with open('metrics_sites.json', 'w') as jsonfile:
-                                siteResponse = myapi.sites
-                                json.dump(siteResponse,jsonfile)
-                            next_site_refr = now + timedelta(seconds=ANKER_SOLIX_SITE_REFRESH_WAITING)
-
-                        if next_dev_refr <= now:
-                            CONSOLE.info(now.isoformat()+": Running device details refresh...")
-                            await myapi.update_device_details()
-
-                            with open('metrics_device_details.json', 'w') as jsonfile:
-                                deviceResponse = myapi.devices
-                                json.dump(deviceResponse,jsonfile)
+				#curl -s -X POST http://signal-cli-rest-api:8080/v2/send -H 'Accept: application/json' -H 'Content-Type: application/json' -d '{"base64_attachments": [],"message": "Torrent: '$1' size: '$size' Category: '$3' Status: '$4'","number": "+4916091258234","recipients": ["+491736921693"]}'
 
                             next_dev_refr = now + timedelta(seconds=ANKER_SOLIX_DEVICE_REFRESH_WAITING)
 
@@ -390,7 +421,7 @@ def start_background_task():
 
 # Start the FastAPI app in the background
 def run_uvicorn():
-    uvicorn.run(app, host="0.0.0.0", port=5000, log_level="warning")
+    uvicorn.run(app, host="0.0.0.0", port=9005, log_level="warning")
 
 @app.get("/metrics", response_class=PlainTextResponse)
 async def get_metrics():
