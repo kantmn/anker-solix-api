@@ -1,0 +1,3067 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 30,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 73,
+      "panels": [],
+      "title": "Solar Now",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "description": "solar rgb(253, 151, 0)\nhome rgb(69, 158, 149)\nbattery rgb(240, 95, 141)\ngrid rgb(72, 143, 194)",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 85,
+      "options": {
+        "autoScale": false,
+        "bgURL": "https://assets.roebig.net/images/energy_distribution_square_blanko.png",
+        "boxes": [
+          {
+            "angle": 0,
+            "backgroundColor": "#24292e",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#fd9700",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#fd9700",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "solar power",
+            "suffix": " W",
+            "suffixSize": 12,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,1",
+            "url": "",
+            "xpos": 35,
+            "ypos": 190
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#459e95",
+            "colorLow": "#459e95",
+            "colorMedium": "#459e95",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "home load",
+            "suffix": "W",
+            "suffixSize": 12,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "200,800",
+            "url": "",
+            "xpos": 155,
+            "ypos": 70
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#f05f8d",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#f05f8d",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "battery power in",
+            "suffix": " W",
+            "suffixSize": 12,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,10",
+            "url": "",
+            "xpos": 155,
+            "ypos": 190
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#A352CC",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#f05f8d",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "battery out",
+            "suffix": " W",
+            "suffixSize": 12,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,800",
+            "url": "",
+            "xpos": 155,
+            "ypos": 190
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#3274D9",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#488fc2",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "grid in",
+            "suffix": " W",
+            "suffixSize": 12,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,800",
+            "url": "",
+            "xpos": 35,
+            "ypos": 70
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#E02F44",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#E02F44",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "grid out",
+            "suffix": " W",
+            "suffixSize": 12,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,11",
+            "url": "",
+            "xpos": 35,
+            "ypos": 70
+          },
+          {
+            "angle": 180,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#488fc2",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#488fc2",
+            "colorSymbol": true,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": true,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "grid in",
+            "suffix": "",
+            "suffixSize": 10,
+            "symbol": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQgNjQiIHhtbDpzcGFjZT0icHJlc2VydmUiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxwYXRoIHN0eWxlPSJmaWxsOiNiMWIzYjQ7c3Ryb2tlOiNiMWIzYjQ7c3Ryb2tlLW1pdGVybGltaXQ6MTAiIGQ9Ik0uNzggMzEuOTYgMzIuMTIgMS4xN3YyMS44NWgzMS4zNHYxNy45NUgzMi4xMnYyMS43N3oiLz48L3N2Zz4=",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 22,
+            "symbolHideText": true,
+            "symbolWidth": 22,
+            "text": "N/A",
+            "thresholds": "1,10",
+            "url": "",
+            "xpos": 100,
+            "ypos": 35
+          },
+          {
+            "angle": 135,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#fd9700",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#fd9700",
+            "colorSymbol": true,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": true,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "solar_2_home",
+            "suffix": "",
+            "suffixSize": 10,
+            "symbol": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQgNjQiIHhtbDpzcGFjZT0icHJlc2VydmUiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxwYXRoIHN0eWxlPSJmaWxsOiNiMWIzYjQ7c3Ryb2tlOiNiMWIzYjQ7c3Ryb2tlLW1pdGVybGltaXQ6MTAiIGQ9Ik0uNzggMzEuOTYgMzIuMTIgMS4xN3YyMS44NWgzMS4zNHYxNy45NUgzMi4xMnYyMS43N3oiLz48L3N2Zz4=",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 22,
+            "symbolHideText": true,
+            "symbolWidth": 66,
+            "text": "N/A",
+            "thresholds": "1,10",
+            "url": "",
+            "xpos": 75,
+            "ypos": 90
+          },
+          {
+            "angle": 90,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#f05f8d",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#f05f8d",
+            "colorSymbol": true,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": true,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "battery out",
+            "suffix": " ",
+            "suffixSize": 12,
+            "symbol": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQgNjQiIHhtbDpzcGFjZT0icHJlc2VydmUiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxwYXRoIHN0eWxlPSJmaWxsOiNiMWIzYjQ7c3Ryb2tlOiNiMWIzYjQ7c3Ryb2tlLW1pdGVybGltaXQ6MTAiIGQ9Ik0uNzggMzEuOTYgMzIuMTIgMS4xN3YyMS44NWgzMS4zNHYxNy45NUgzMi4xMnYyMS43N3oiLz48L3N2Zz4=",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 22,
+            "symbolHideText": true,
+            "symbolWidth": 22,
+            "text": "N/A",
+            "thresholds": "1,10",
+            "url": "",
+            "xpos": 155,
+            "ypos": 93
+          },
+          {
+            "angle": 180,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#fd9700",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#fd9700",
+            "colorSymbol": true,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": true,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "battery power in",
+            "suffix": "",
+            "suffixSize": 12,
+            "symbol": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQgNjQiIHhtbDpzcGFjZT0icHJlc2VydmUiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxwYXRoIHN0eWxlPSJmaWxsOiNiMWIzYjQ7c3Ryb2tlOiNiMWIzYjQ7c3Ryb2tlLW1pdGVybGltaXQ6MTAiIGQ9Ik0uNzggMzEuOTYgMzIuMTIgMS4xN3YyMS44NWgzMS4zNHYxNy45NUgzMi4xMnYyMS43N3oiLz48L3N2Zz4=",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 22,
+            "symbolHideText": true,
+            "symbolWidth": 22,
+            "text": "N/A",
+            "thresholds": "1,10",
+            "url": "",
+            "xpos": 99,
+            "ypos": 150
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#459e95",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#459e95",
+            "colorSymbol": true,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": true,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "grid out",
+            "suffix": " Wh",
+            "suffixSize": 12,
+            "symbol": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQgNjQiIHhtbDpzcGFjZT0icHJlc2VydmUiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxwYXRoIHN0eWxlPSJmaWxsOiNiMWIzYjQ7c3Ryb2tlOiNiMWIzYjQ7c3Ryb2tlLW1pdGVybGltaXQ6MTAiIGQ9Ik0uNzggMzEuOTYgMzIuMTIgMS4xN3YyMS44NWgzMS4zNHYxNy45NUgzMi4xMnYyMS43N3oiLz48L3N2Zz4=",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 22,
+            "symbolHideText": true,
+            "symbolWidth": 22,
+            "text": "N/A",
+            "thresholds": "1,10",
+            "url": "",
+            "xpos": 99,
+            "ypos": 40
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": true,
+            "blinkLow": true,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#E02F44",
+            "colorLow": "#E02F44",
+            "colorMedium": "#f05f8d",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 12,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Left",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "battery level",
+            "suffix": " %",
+            "suffixSize": 12,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "9,90",
+            "url": "",
+            "xpos": 158,
+            "ypos": 155
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#ffffff",
+            "blinkHigh": false,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#f00",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#ff9900",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 18,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Top",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "panel_1",
+            "suffix": "",
+            "suffixSize": 1,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,400",
+            "url": "",
+            "xpos": 13,
+            "ypos": 130
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#ffffff",
+            "blinkHigh": false,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#f00",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#fd9700",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 18,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Top",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "panel_2",
+            "suffix": "",
+            "suffixSize": 1,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,400",
+            "url": "",
+            "xpos": 57,
+            "ypos": 130
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#f8f8f8",
+            "blinkHigh": false,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#f00",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#fd9700",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 18,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Top",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "panel_3",
+            "suffix": "",
+            "suffixSize": 10,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,400",
+            "url": "",
+            "xpos": 13,
+            "ypos": 157
+          },
+          {
+            "angle": 0,
+            "backgroundColor": "#ffffff",
+            "blinkHigh": false,
+            "blinkLow": false,
+            "borderColor": "#fff",
+            "borderWidth": 1,
+            "color": "#fff",
+            "colorHigh": "#f00",
+            "colorLow": "#ffffff00",
+            "colorMedium": "#fd9700",
+            "colorSymbol": false,
+            "customSymbol": "",
+            "decimal": 0,
+            "fontSize": 18,
+            "hasBackground": false,
+            "hasBorder": false,
+            "hasOrb": false,
+            "hasSymbol": false,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Top",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "selected": false,
+            "serie": "panel_4",
+            "suffix": "",
+            "suffixSize": 1,
+            "symbol": "",
+            "symbolDefHeight": 32,
+            "symbolDefWidth": 32,
+            "symbolHeight": 32,
+            "symbolHideText": false,
+            "symbolWidth": 32,
+            "text": "N/A",
+            "thresholds": "1,400",
+            "url": "",
+            "xpos": 56,
+            "ypos": 157
+          }
+        ]
+      },
+      "pluginVersion": "2.0.6",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power+anker_solix_api_sites_solarbank_info_to_home_load-anker_solix_api_sites_grid_info_photovoltaic_to_grid_power)",
+          "legendFormat": "home load",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_total_photovoltaic_power",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "solar power",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_total_charging_power",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "battery power in",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "(anker_solix_api_sites_solarbank_info_total_charging_power*-1)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "battery out",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_grid_info_grid_to_home_power",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "grid in",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_grid_info_photovoltaic_to_grid_power",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "grid out",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_solarbank_list_value_0_battery_power",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "battery level",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_total_photovoltaic_power - anker_solix_api_sites_solarbank_info_total_charging_power - anker_solix_api_sites_grid_info_photovoltaic_to_grid_power",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "solar_2_home",
+          "range": true,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_solar_power_1",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "panel_1",
+          "range": true,
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_solar_power_2",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "panel_2",
+          "range": true,
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_solar_power_3",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "panel_3",
+          "range": true,
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_solar_power_4",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "panel_4",
+          "range": true,
+          "refId": "L"
+        }
+      ],
+      "timeFrom": "5s",
+      "title": "Energy Distribution",
+      "transparent": true,
+      "type": "larona-epict-panel"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 4,
+        "y": 1
+      },
+      "id": 81,
+      "options": {
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power+anker_solix_api_sites_solarbank_info_to_home_load- anker_solix_api_sites_smart_plug_info_total_power)",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "House",
+          "range": true,
+          "refId": "C",
+          "useBackend": false
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum by (alias) (anker_solix_api_devices_current_power)",
+          "legendFormat": "{{alias}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "5s",
+      "title": "Power Shares  now",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 10,
+        "y": 1
+      },
+      "id": 82,
+      "options": {
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Value",
+          "sortDesc": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power+anker_solix_api_sites_solarbank_info_to_home_load- anker_solix_api_sites_smart_plug_info_total_power)\n",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "House",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum by (alias) (anker_solix_api_devices_current_power)",
+          "hide": false,
+          "legendFormat": "{{alias}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "24h",
+      "title": "Power Share Averages",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red"
+              },
+              {
+                "color": "orange",
+                "value": 25
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 75
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "id": 102,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_energy_details_today_solar_production  -  anker_solix_api_sites_energy_details_today_solar_to_grid) / sum(anker_solix_api_sites_energy_details_today_home_usage) or sum(anker_solix_api_energy_today_home_usage) ",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "timeFrom": "5s",
+      "title": "Autarky Grade",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "description": "- detection = \"0\"  # frequent for  Smartmeter in the morning\n- protection_charge = \"03\"  # when there is charge while output below demand in detection mode\n- bypass = \"1\" # Bypass solar without charging\n- bypass_discharge = \"12\"  # if discharging in bypass mode\n- discharge = \"2\"  # only seen if no solar available\n- charge = \"3\"  # normal charge for battery\n- charge_bypass = \"31\"  # unused\n- charge_priority = \"37\"  # unused\n- wakeup = \"4\"  # Not clear short intervals during night, probably hourly? resync with the cloud\n- unknown = \"5\" # was not observed yet\n- full_bypass = \"6\"  # at cold temperature, when battery must not be charged and the Solarbank bypasses all directly to inverter, also solar power < 25 W\n- standby = \"7\"",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "text",
+                  "index": 0,
+                  "text": "Detection / Awaiting"
+                },
+                "1": {
+                  "color": "yellow",
+                  "index": 2,
+                  "text": "Solar ByPass Battery"
+                },
+                "2": {
+                  "color": "orange",
+                  "index": 4,
+                  "text": "Battery Discharge"
+                },
+                "3": {
+                  "color": "purple",
+                  "index": 5,
+                  "text": "Battery Charge"
+                },
+                "5": {
+                  "color": "green",
+                  "index": 8,
+                  "text": "Battery Full / Grid Out"
+                },
+                "6": {
+                  "color": "blue",
+                  "index": 6,
+                  "text": "Solar < 25W or Cold Battery ByPass"
+                },
+                "7": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "Standby / Deepsleep"
+                },
+                "12": {
+                  "color": "super-light-orange",
+                  "index": 3,
+                  "text": "Solar ByPass Battery & Discharge"
+                },
+                "03": {
+                  "color": "super-light-blue",
+                  "index": 1,
+                  "text": "Protection Charge"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "id": 98,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_devices_charging_status)",
+          "legendFormat": "Charging Status",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "5s",
+      "title": "Charging Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 4
+      },
+      "id": 105,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power+anker_solix_api_sites_solarbank_info_to_home_load- anker_solix_api_sites_smart_plug_info_total_power)\n",
+          "legendFormat": "AstromaX",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "House without Plugs",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "yellow",
+                "value": 25
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 75
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 4,
+        "y": 8
+      },
+      "id": 104,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_energy_details_today_solar_production*1000",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Reality",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_energy_details_today_home_usage*1000",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Usage",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_energy_details_today_grid_to_home*1000",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Imported",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_energy_details_today_solar_to_grid*1000",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Exported",
+          "range": true,
+          "refId": "G"
+        }
+      ],
+      "title": "Production Prediction",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 71,
+      "panels": [],
+      "title": "Solar Stats in Time Range",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 15
+      },
+      "id": 66,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Grid",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_solarbank_info_to_home_load)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Battery or Solar",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Home Energy Consumption",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Panel 1",
+                "Panel 2",
+                "Panel 3",
+                "Panel 4"
+              ],
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 9,
+        "y": 15
+      },
+      "id": 67,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_today_solarbank_charge) or sum(anker_solix_api_sites_energy_details_today_solarbank_charge) or sum(anker_solix_api_sites_energy_details_today_battery_charge)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Battery",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_energy_details_today_grid_to_home)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Grid",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_energy_details_today_solar_production) -sum(\n    anker_solix_api_sites_energy_details_today_battery_charge or anker_solix_api_today_solarbank_charge\n) -  sum(anker_solix_api_sites_energy_details_today_solar_to_grid)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Solar",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Home Energy Sources",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 10,
+        "x": 14,
+        "y": 15
+      },
+      "id": 101,
+      "interval": "10m",
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "anker_solix_api_sites_solarbank_info_to_home_load",
+          "format": "time_series",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "Home Power Usage",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "pvgis_api_seriescalc_min",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "Min",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "pvgis_api_seriescalc_avg",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Avg",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "anker_solix_api_sites_solarbank_info_total_photovoltaic_power offset  -60m",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Reality",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power+anker_solix_api_sites_solarbank_info_to_home_load- anker_solix_api_sites_smart_plug_info_total_power)\n",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Power Usage",
+          "range": true,
+          "refId": "F"
+        }
+      ],
+      "timeFrom": "24h",
+      "title": "Solaroutput Expectation and reality",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 22
+      },
+      "id": 86,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Last",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_photovoltaic_to_grid_power)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Grid",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_solarbank_info_pei_heating_power)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Heating Power",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_solarbank_info_total_charging_power) >= 0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Battery",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(sum(anker_solix_api_devices_output_power) - sum(anker_solix_api_devices_input_power)) >= 0",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "Home",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_solarbank_info_total_photovoltaic_power) - \n(sum(anker_solix_api_sites_solarbank_info_total_charging_power) >= 0 )",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Home",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Solar Distribution",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 9,
+        "y": 22
+      },
+      "id": 54,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_today_solar_production_pv1) or sum(anker_solix_api_sites_energy_details_today_solar_production_pv1)",
+          "instant": false,
+          "legendFormat": "PV1",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_today_solar_production_pv2) or sum(anker_solix_api_sites_energy_details_today_solar_production_pv2)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "PV2",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_today_solar_production_pv3) or sum(anker_solix_api_sites_energy_details_today_solar_production_pv3)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "PV3",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_today_solar_production_pv4) or sum(anker_solix_api_sites_energy_details_today_solar_production_pv4)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "PV4",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Panel Production Shares",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 10,
+        "x": 14,
+        "y": 22
+      },
+      "id": 68,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_solarbank_info_solar_power_1) or sum(anker_solix_api_sites_solarbank_info_solar_power_1)",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_solarbank_info_solar_power_2) or sum(anker_solix_api_sites_solarbank_info_solar_power_2)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_solarbank_info_solar_power_3) or sum(anker_solix_api_sites_solarbank_info_solar_power_3)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_solarbank_info_solar_power_4) or sum(anker_solix_api_sites_solarbank_info_solar_power_4)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Solar Panels",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Panel 1",
+                "Panel 2",
+                "Panel 3",
+                "Panel 4"
+              ],
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*solar_power_(\\d).*",
+            "renamePattern": "Panel $1"
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 29
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Import",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_photovoltaic_to_grid_power)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Export",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Grid Usage",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Panel 1",
+                "Panel 2",
+                "Panel 3",
+                "Panel 4"
+              ],
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 9,
+        "y": 29
+      },
+      "id": 69,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_today_solarbank_charge) or sum(anker_solix_api_sites_energy_details_today_solarbank_charge) or sum(anker_solix_api_sites_energy_details_today_battery_charge)",
+          "instant": false,
+          "legendFormat": "Battery",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_energy_details_today_solar_to_grid)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Grid",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_energy_details_today_solar_production) -sum(\n    anker_solix_api_sites_energy_details_today_battery_charge or anker_solix_api_today_solarbank_charge\n) -  sum(anker_solix_api_sites_energy_details_today_solar_to_grid)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Home",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Solar Power Destinations",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 10,
+        "x": 14,
+        "y": 29
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "range",
+            "last"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_value0_battery_power or anker_solix_api_sites_solarbank_info_solarbank_list_value_0_battery_power)/100",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Charge",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Battery State",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "description": "- detection = \"0\"  # frequent for  Smartmeter in the morning\n- protection_charge = \"03\"  # when there is charge while output below demand in detection mode\n- bypass = \"1\" # Bypass solar without charging\n- bypass_discharge = \"12\"  # if discharging in bypass mode\n- discharge = \"2\"  # only seen if no solar available\n- charge = \"3\"  # normal charge for battery\n- charge_bypass = \"31\"  # unused\n- charge_priority = \"37\"  # unused\n- wakeup = \"4\"  # Not clear short intervals during night, probably hourly? resync with the cloud\n- unknown = \"5\" # was not observed yet\n- full_bypass = \"6\"  # at cold temperature, when battery must not be charged and the Solarbank bypasses all directly to inverter, also solar power < 25 W\n- standby = \"7\"",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "text",
+                  "index": 0,
+                  "text": "Detection"
+                },
+                "1": {
+                  "color": "yellow",
+                  "index": 2,
+                  "text": "Solar ByPass Battery"
+                },
+                "2": {
+                  "color": "orange",
+                  "index": 4,
+                  "text": "Battery Discharge"
+                },
+                "3": {
+                  "color": "purple",
+                  "index": 5,
+                  "text": "Battery Charge"
+                },
+                "6": {
+                  "color": "blue",
+                  "index": 6,
+                  "text": "Solar < 25W or Cold Battery ByPass"
+                },
+                "7": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "Standby / Deepsleep"
+                },
+                "12": {
+                  "color": "super-light-orange",
+                  "index": 3,
+                  "text": "Solar ByPass Battery & Discharge"
+                },
+                "03": {
+                  "color": "super-light-blue",
+                  "index": 1,
+                  "text": "Protection Charge"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 36
+      },
+      "id": 99,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_devices_charging_status)",
+          "legendFormat": "Charging Status",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Charging Status",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 9,
+        "y": 36
+      },
+      "id": 65,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_energy_details_today_solar_to_grid)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Export",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_energy_details_today_grid_to_home)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Import",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Grid Distribution",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 10,
+        "x": 14,
+        "y": 36
+      },
+      "id": 106,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "range"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eb47566a-d72a-4cca-b503-26823bd072c0"
+          },
+          "editorMode": "code",
+          "expr": "sum(anker_solix_api_sites_grid_info_grid_to_home_power+anker_solix_api_sites_solarbank_info_to_home_load- anker_solix_api_sites_smart_plug_info_total_power)",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "House",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum by (alias) (anker_solix_api_devices_current_power)",
+          "legendFormat": "{{alias}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Power Share Averages",
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "0.2678",
+          "value": "0.2678"
+        },
+        "label": "€ / kWh",
+        "name": "strom_arbeitspreis",
+        "options": [
+          {
+            "selected": true,
+            "text": "0.2678",
+            "value": "0.2678"
+          }
+        ],
+        "query": "0.2678",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "14.88",
+          "value": "14.88"
+        },
+        "description": "Monatlich €",
+        "label": "Grundgebühr €",
+        "name": "strom_grundgebuehr",
+        "options": [
+          {
+            "selected": true,
+            "text": "14.88",
+            "value": "14.88"
+          }
+        ],
+        "query": "14.88",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "4400",
+          "value": "4400"
+        },
+        "label": "kWh/Y",
+        "name": "strom_verbrauch",
+        "options": [
+          {
+            "selected": true,
+            "text": "4400",
+            "value": "4400"
+          }
+        ],
+        "query": "4400",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "export",
+  "uid": "eel7dj0xj6t4wb",
+  "version": 8
+}
