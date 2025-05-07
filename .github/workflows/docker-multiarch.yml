@@ -46,6 +46,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/arm64
+          outputs: type=image  # <--- important
 
   # Build for AMD (on QEMU AMD)
   build-amd-linux:
@@ -84,6 +85,7 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          outputs: type=image  # <--- important
 
   # Create the Multi-Arch Manifest
   create-manifest:
