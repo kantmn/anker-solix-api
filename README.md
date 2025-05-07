@@ -4,20 +4,24 @@ This docker provides an http service under port http://ip:5000/metrics
 
 
 # docker container setup
-pull the container as needed, there are two plattforms (amd64/arm64) available as tags (latest/or yyyy-mm-dd) available.
+pull the container as needed, there are two plattforms (amd64/arm64) available.
 
 ``
 docker pull ghcr.io/kantmn/anker-solix-api:latest
+``
+
+if you want to use fixed version use
+ 
+``
+docker pull ghcr.io/kantmn/anker-solix-api:vMajor.Minor.Patch
+docker pull ghcr.io/kantmn/anker-solix-api:v1.2.3.
 ``
 
 Map path from container 
 > /app
 
 to your local path where the anker-solix-api is available, you can get it via
-
-``
-git clone https://github.com/thomluther/anker-solix-api.git anker_api
-``
+The Git repo from thomluther/anker-solix-api is already included in the image.
 
 The container will launch the file and use the api inside the folder anker_api
 > script.py
