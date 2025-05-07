@@ -13,8 +13,9 @@ jobs:
   build-arm-linux:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       packages: write
+      contents: read
+      attestations: write
       id-token: write
     steps:
       - name: Checkout code
@@ -62,8 +63,10 @@ jobs:
   build-amd64-linux:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       packages: write
+      contents: read
+      attestations: write
+      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
