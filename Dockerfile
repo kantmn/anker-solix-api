@@ -12,6 +12,9 @@ WORKDIR /app
 # Copy the Pipfile and Pipfile.lock to the container
 COPY Pipfile Pipfile.lock /app/
 
+# Clear the lock file and regenerate it
+RUN pipenv lock --clear
+
 # Update and sync dependencies
 RUN pipenv update && pipenv lock
 RUN pipenv install requests fastapi uvicorn
