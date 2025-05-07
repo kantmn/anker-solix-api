@@ -13,9 +13,13 @@ docker pull ghcr.io/kantmn/anker-solix-api:latest
 Map path from container 
 > /app
 
-to your local path where the anker-solix-api is available
+to your local path where the anker-solix-api is available, you can get it via
 
-The container will launch the file 
+``
+git clone https://github.com/thomluther/anker-solix-api.git anker_api
+``
+
+The container will launch the file and use the api inside the folder anker_api
 > script.py
 
 inside the /app path on startup.
