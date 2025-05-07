@@ -37,7 +37,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      - name: Build and push ARM image
+      - name: Build and push ARM64 image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -106,14 +106,9 @@ jobs:
       - name: Create and push multi-arch manifest
         run: |
           # Create manifest for latest
-          docker manifest create ghcr.io/${{ github.repository }}:latest \
-            --amend ghcr.io/${{ github.repository }}:amd64-latest \
-            --amend ghcr.io/${{ github.repository }}:arm64-latest
-          docker manifest push ghcr.io/${{ github.repository }}:latest
+          docker manifest create ${{ env.IMAGE_NAME }}:latest \
+            --amend ${{ env.IMAGE_NAME }}:amd64-latest \
+            --amend ${{ env.IMAGE_NAME }}:arm64-latest
+          docker manifest push ${{ env.IMAGE_NAME }}:latest
 
-          # Create manifest for version tag (e.g., v0.1.3)
-          docker manifest create ghcr.io/${{ github.repository }}:${{ github.ref_name }} \
-            --amend ghcr.io/${{ github.repository }}:amd64-latest \
-            --amend ghcr.io/${{ github.repository }}:arm64-latest
-          docker manifest push ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
