@@ -47,10 +47,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}-arm64
-          labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+          outputs: type=image,name=${{ env.IMAGE_NAME }}:arm64-${{ env.VERSION }},push=true
           
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
@@ -97,10 +97,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}-amd64
-          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           platforms: linux/amd64
+          outputs: type=image,name=${{ env.IMAGE_NAME }}:amd64-${{ env.VERSION }},push=true
             
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
@@ -132,8 +132,13 @@ jobs:
         run: |
           # Create manifest for latest
           docker manifest create ${{ env.IMAGE_NAME }}:latest \
-            --amend ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}-amd64 \
-            --amend ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}-arm64
+            --amend ${{ env.IMAGE_NAME }}:amd64-${{ env.VERSION }} \
+            --amend ${{ env.IMAGE_NAME }}:arm64-${{ env.VERSION }}
           docker manifest push ${{ env.IMAGE_NAME }}:latest
+
+          docker manifest create ${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
+            --amend ${{ env.IMAGE_NAME }}:amd64-${{ env.VERSION }} \
+            --amend ${{ env.IMAGE_NAME }}:arm64-${{ env.VERSION }}
+          docker manifest push ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
 
