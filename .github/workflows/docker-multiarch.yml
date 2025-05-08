@@ -49,7 +49,6 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64
           outputs: type=image,name=${{ env.IMAGE_NAME }}:arm64-${{ env.VERSION }},push=true
           
       - name: Generate artifact attestation
@@ -99,7 +98,6 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64
           outputs: type=image,name=${{ env.IMAGE_NAME }}:amd64-${{ env.VERSION }},push=true
             
       - name: Generate artifact attestation
