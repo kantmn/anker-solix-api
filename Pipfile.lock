@@ -372,7 +372,7 @@
             ],
             "index": "pypi",
             "markers": "python_version >= '3.7' and python_full_version not in '3.9.0, 3.9.1'",
-            "version": "==44.0.0"
+            "version": "==44.0.1"
         },
         "fastapi": {
             "hashes": [
@@ -487,7 +487,7 @@
                 "sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==0.14.0"
+            "version": "==0.16.0"
         },
         "idna": {
             "hashes": [
