@@ -17,7 +17,7 @@ docker pull ghcr.io/kantmn/anker-solix-api:yyyy.mm
 ``
 
 Map path from container 
-> /app
+> /logs
 
 This will locate the log metrics only
 
