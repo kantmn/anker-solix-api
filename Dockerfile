@@ -1,3 +1,4 @@
+FROM python:3.12-slim
 
 ARG ANKERUSER=youranker@emailaccount.com
 ENV ANKERUSER=$ANKERUSER
@@ -25,8 +26,6 @@ ENV SIGNAL_API_URL=$SIGNAL_API_URL
 
 ARG WEATHER_API_URL=https://api.openweathermap.org/data/2.5/weather?lat=11.12345&lon=11.12345&appid=12345678890abcdefgh
 ENV WEATHER_API_URL=$WEATHER_API_URL
-
-FROM python:3.12-slim
 
 # Install dependencies
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
