@@ -186,7 +186,7 @@ def json_to_prometheus(data, masterkey=""):
 
 def pvgis_calculate_day():
     # Load JSON data from a file
-    file_path = "metrics_pvgis.json"  # Replace with your JSON file path
+    file_path = os.path.join(LOG_DIR, "metrics_pvgis.json")
     with open(file_path, "r") as file:
         data = json.load(file)
 
@@ -210,7 +210,7 @@ def pvgis_calculate_day():
 
         aggregated_data[key].append(p_value)
 
-    file_path = "calculations_pvgis.json"
+    file_path = os.path.join(LOG_DIR, "calculations_pvgis.json")
 
     with open(file_path, "w") as file:
         pass  # Clears the file by opening it in write mode without writing anything
@@ -258,7 +258,7 @@ def pvgis_calculate_day():
     f.close()
 
 def pvgis_read_calulations():
-    file_path = "calculations_pvgis.json"
+    file_path = os.path.join(LOG_DIR, "calculations_pvgis.json")
     if not os.path.exists(file_path):
         pvgis_calculate_day()
 
@@ -304,7 +304,7 @@ async def main() -> None:
                             CONSOLE.info(now.isoformat()+": Running device details refresh...")
                             await myapi.update_device_details()
 
-                            with open('metrics_device_details.json', 'w') as jsonfile:
+                            with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'w') as jsonfile:
                                 deviceResponse = myapi.devices
                                 json.dump(deviceResponse,jsonfile)
 
@@ -312,7 +312,7 @@ async def main() -> None:
                             CONSOLE.info(now.isoformat()+": Running site refresh...")
                             await myapi.update_sites()
 
-                            with open('metrics_sites.json', 'w') as jsonfile:
+                            with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'w') as jsonfile:
                                 siteResponse = myapi.sites
                                 json.dump(siteResponse,jsonfile)
                             next_site_refr = now + timedelta(seconds=ANKER_SOLIX_SITE_REFRESH_WAITING)
@@ -320,7 +320,8 @@ async def main() -> None:
                         if next_weather_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running weather refresh...")
                             data_weather = requests.get(WEATHER_API_URL).json()
-                            with open('metrics_weather.json', 'w') as jsonfile:
+                            
+                            with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'w') as jsonfile:
                                 json.dump(data_weather,jsonfile)
                             next_weather_refr = now + timedelta(seconds=WEATHER_API_REFRESH_WAITING)
 
@@ -334,7 +335,7 @@ async def main() -> None:
                             CONSOLE.info(now.isoformat()+": Running energy details refresh...")
                             await myapi.update_device_energy()
 
-                            with open('metrics_energy_details.json', 'w') as jsonfile:
+                            with open(os.path.join(LOG_DIR, "metrics_energy_details.json"), 'w') as jsonfile:
                                 for site_id, site in myapi.sites.items():
                                     json.dump(site.get("energy_details"),jsonfile)
                             next_stats_refr = now + timedelta(seconds=ANKER_SOLIX_ENERGYSTATS_REFRESH_WAITING)
@@ -347,13 +348,13 @@ async def main() -> None:
                         ########## READ FILEs here and combine
 
                         # Open the JSON file and read its contents
-                        with open('metrics_weather.json', 'r') as file:
+                        with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'r') as file:
                             metrics_weather = json.load(file)
-                        with open('metrics_sites.json', 'r') as file:
+                        with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'r') as file:
                             metrics_sites = json.load(file)
-                        with open('metrics_energy_details.json', 'r') as file:
+                        with open(os.path.join(LOG_DIR, "metrics_energy_details.json"), 'r') as file:
                             metrics_energy = json.load(file)
-                        with open('metrics_device_details.json', 'r') as file:
+                        with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'r') as file:
                             metrics_device_details = json.load(file)
                     except Exception as err:
                         if "connect" in str(type(err)).lower():
@@ -387,13 +388,13 @@ def run_uvicorn():
 @app.get("/metrics", response_class=PlainTextResponse)
 async def get_metrics():
     # Open the JSON file and read its contents
-    with open('metrics_weather.json', 'r') as file:
+    with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'r') as file:
         metrics_weather = json.load(file)
-    with open('metrics_sites.json', 'r') as file:
+    with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'r') as file:
         metrics_sites = json.load(file)
-    with open('metrics_energy_details.json', 'r') as file:
+    with open(os.path.join(LOG_DIR, "metrics_energy_details.json"), 'r') as file:
         metrics_energy = json.load(file)
-    with open('metrics_device_details.json', 'r') as file:
+    with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'r') as file:
         metrics_device_details = json.load(file)
 
     results = "\n".join([
