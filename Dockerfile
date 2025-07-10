@@ -1,4 +1,3 @@
-ENV MY_VAR=some_value
 ENV ANKERUSER=youranker@emailaccount.com
 ENV ANKERPASSWORD=anker_password
 ENV ANKERCOUNTRY=DE
