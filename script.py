@@ -309,7 +309,7 @@ async def main() -> None:
                                 json.dump(deviceResponse,jsonfile)
 
 
-				if os.environ["USE_SIGNAL"]:
+				                if os.environ["USE_SIGNAL"]:
 	                                url = os.environ["SIGNAL_API_URL"]"
 	                                headers = {
 	                                    "Accept": "application/json",
@@ -342,7 +342,7 @@ async def main() -> None:
                             sunrise = data_weather['sys']['sunrise']
                             sunset = data_weather['sys']['sunset']
 
-				next_dev_refr = now + timedelta(seconds=ANKER_SOLIX_DEVICE_REFRESH_WAITING)
+				            next_dev_refr = now + timedelta(seconds=ANKER_SOLIX_DEVICE_REFRESH_WAITING)
 
                         if next_stats_refr <= now: # and sunrise <= current_unixtime <= sunset:
                             CONSOLE.info(now.isoformat()+": Running energy details refresh...")
@@ -357,7 +357,8 @@ async def main() -> None:
                         # Replace with the desired minute
                         if current_minute == 13 and current_unixtime > sunrise and current_unixtime < sunset:
                             pvgis_calculate_day()
-        ########## READ FILEs here and combine
+                        
+                        ########## READ FILEs here and combine
 
                         # Open the JSON file and read its contents
                         with open('metrics_weather.json', 'r') as file:
