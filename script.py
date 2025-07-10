@@ -27,17 +27,13 @@ if script_dir not in sys.path:
 # initialize fastapi
 app = FastAPI()
 
-os.environ["ANKERUSER"] = "YOUR EMAIL HERE" # your anker account email
-os.environ["ANKERPASSWORD"] = "YOUR PASSWORD HERE" # your anker password
-os.environ["ANKERCOUNTRY"] = "DE" # your region for anker
-SIGNAL_SENDER = "+49160123456"
-SIGNAL_TARGET = "+491601234567"
+import os
 
-ANKER_SOLIX_DUID = "APCGQ80E22600912_" # avoids the solix uids to be part of the key name adjust your value here
+ANKER_SOLIX_DUID = os.environ["ANKER_SOLIX_DUID"] # avoids the solix uids to be part of the key name adjust your value here
 ANKER_SOLIX_SITE_REFRESH_WAITING = 8 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
 ANKER_SOLIX_DEVICE_REFRESH_WAITING = 8 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
 ANKER_SOLIX_ENERGYSTATS_REFRESH_WAITING = 60 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
-WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?lat=XX&lon=XX&appid=YOUR TOKEN"
+WEATHER_API_URL = os.environ["WEATHER_API_URL"]
 WEATHER_API_REFRESH_WAITING = 60 # every 60s refresh weather from api, get temps, clouds, rain etc, 60s is for free
 LOOP_API_SLEEP_WAITING = 10 # sleep timer to avoid high cpu load
 LOOP_API_DEEPSLEEP_WAITING = 60 # sleep timer if solix goes into sleep mode normally arround 10%, slow down calls as api will not respond with new data anyway
@@ -312,17 +308,19 @@ async def main() -> None:
                                 deviceResponse = myapi.devices
                                 json.dump(deviceResponse,jsonfile)
 
-                                url = "http://signal-cli-rest-api:8080/v2/send"
-                                headers = {
-                                    "Accept": "application/json",
-                                    "Content-Type": "application/json"
-                                }
-                                data = {
-                                    "base64_attachments": [],
-                                    "message": "BATTERY ALMOST FULL / WASTING SOLAR > 100w",
-                                    "number": SIGNAL_SENDER,
-                                    "recipients": [SIGNAL_TARGET]
-                                }
+
+				if os.environ["USE_SIGNAL"]:
+	                                url = os.environ["SIGNAL_API_URL"]"
+	                                headers = {
+	                                    "Accept": "application/json",
+	                                    "Content-Type": "application/json"
+	                                }
+	                                data = {
+	                                    "base64_attachments": [],
+	                                    "message": "BATTERY ALMOST FULL / WASTING SOLAR > 100w",
+	                                    "number": os.environ["SIGNAL_SENDER"],
+	                                    "recipients": os.environ["SIGNAL_TARGET"]
+	                                }
 
                         if next_site_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running site refresh...")
