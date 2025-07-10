@@ -1,3 +1,5 @@
+ENV MY_VAR=some_value
+
 FROM python:3.12-slim
 
 # Install dependencies
@@ -10,7 +12,7 @@ RUN pip install pipenv
 WORKDIR /app
 
 # Copy the Pipfile and Pipfile.lock to the container
-COPY Pipfile Pipfile.lock /app/
+COPY Pipfile Pipfile.lock script.py /app/
 
 # Clear the lock file and regenerate it
 RUN pipenv lock --clear
