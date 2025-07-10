@@ -37,7 +37,7 @@ WEATHER_API_URL = os.environ["WEATHER_API_URL"]
 WEATHER_API_REFRESH_WAITING = 60 # every 60s refresh weather from api, get temps, clouds, rain etc, 60s is for free
 LOOP_API_SLEEP_WAITING = 10 # sleep timer to avoid high cpu load
 LOOP_API_DEEPSLEEP_WAITING = 60 # sleep timer if solix goes into sleep mode normally arround 10%, slow down calls as api will not respond with new data anyway
-LOG_DIR = "/app" # your local path where to put logs, results in /mnt/anker/latest.log and /mnt/anker/logs/yyy-mm-dd.log files
+LOG_DIR = "/logs" # your local path where to put logs, results in /mnt/anker/latest.log and /mnt/anker/logs/yyy-mm-dd.log files
 LOG_RETENTION_TIME = 7 # dates of logs to keep
 
 """Example exec module to use the Anker API for continuously querying and
