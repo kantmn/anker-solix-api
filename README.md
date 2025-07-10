@@ -23,17 +23,26 @@ This will locate the log metrics only
 
 
 Add and fille the following Docker Env variables as needed
-> ANKERUSER=YOUR_ANKER_LOGIN_EMAIL
-> ANKERPASSWORD=YOU_ANKER_PASSWORD
-> ANKERCOUNTRY=YOUR_REGION (e.g. DE=Germany)
-> ANKER_SOLIX_DUID=YOUR_ANKER_GUID (this removes the APCGQ80E12344567_ from the requests)
-> USE_SIGNAL=true (if you have a signal endpoint as api, else use false)
-> SIGNAL_SENDER=+YOUR_SENDER_NUMBER_FROM_SIGNAL_API (use +4912345667 numbers any corresponding number in international format)
-> SIGNAL_TARGET=YOUR_TARGET_NUMBER_FOR_SIGNAL_MESSAGES (use +4912345667 numbers any corresponding number in international format)
-> SIGNAL_API_URL=YOUR_SIGNAL_API_ENDPOINT_URL (e.g. http://signal-cli-rest-api:8080/v2/send)
-> WEATHER_API_URL=YOUR_OPENWEATHERMAP_API_URL
-> (contains coords and api key, key is free of charge and can be obtainted https://home.openweathermap.org/users/sign_up example for api URL https://api.openweathermap.org/data/2.5/weather?lat=11.23456&lon=22.123456&appid=API_KEY_FROM_OPENWEATHER)
+```
+ANKERUSER=YOUR_ANKER_LOGIN_EMAIL
 
+ANKERPASSWORD=YOU_ANKER_PASSWORD
+
+ANKERCOUNTRY=YOUR_REGION (e.g. DE=Germany)
+
+ANKER_SOLIX_DUID=YOUR_ANKER_GUID (this removes the APCGQ80E12344567_ from the requests)
+
+USE_SIGNAL=true (if you have a signal endpoint as api, else use false)
+
+SIGNAL_SENDER=+YOUR_SENDER_NUMBER_FROM_SIGNAL_API (use +4912345667 numbers any corresponding number in international format)
+
+SIGNAL_TARGET=YOUR_TARGET_NUMBER_FOR_SIGNAL_MESSAGES (use +4912345667 numbers any corresponding number in international format)
+
+SIGNAL_API_URL=YOUR_SIGNAL_API_ENDPOINT_URL (e.g. http://signal-cli-rest-api:8080/v2/send)
+
+WEATHER_API_URL=YOUR_OPENWEATHERMAP_API_URL
+(contains coords and api key, key is free of charge and can be obtainted https://home.openweathermap.org/users/sign_up example for api URL https://api.openweathermap.org/data/2.5/weather?lat=11.23456&lon=22.123456&appid=API_KEY_FROM_OPENWEATHER)
+```
 The Script is running in a loop, with sleep time, so only ending when container is stopped, should recover from crash
 
 # prometheus connection
