@@ -21,12 +21,8 @@ import uvicorn
 
 # Add the directory of the script to sys.path
 script_dir = os.path.dirname(os.path.abspath(__file__))
-#script_dir = os.path.dirname(os.path.realpath(__file__))
 if script_dir not in sys.path:
     sys.path.insert(0, script_dir)
-    #sys.path.append(script_dir)
-
-#os.chdir(script_dir)
 
 # initialize fastapi
 app = FastAPI()
@@ -34,6 +30,8 @@ app = FastAPI()
 os.environ["ANKERUSER"] = "YOUR EMAIL HERE" # your anker account email
 os.environ["ANKERPASSWORD"] = "YOUR PASSWORD HERE" # your anker password
 os.environ["ANKERCOUNTRY"] = "DE" # your region for anker
+SIGNAL_SENDER = "+49160123456"
+SIGNAL_TARGET = "+491601234567"
 
 ANKER_SOLIX_DUID = "APCGQ80E22600912_" # avoids the solix uids to be part of the key name adjust your value here
 ANKER_SOLIX_SITE_REFRESH_WAITING = 8 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
@@ -115,7 +113,6 @@ def setup_logger(log_file):
     file_handler.setFormatter(formatter)
 
     logger.addHandler(file_handler)
-    #logger.addHandler(console_handler)
     logger.setLevel(logging.INFO)
     #logger.setLevel(logging.DEBUG)
 
@@ -124,10 +121,6 @@ def setup_logger(log_file):
 
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 CONSOLE: logging.Logger = common.CONSOLE
-
-# Set up the log filename with the current date
-# log_file = f"{datetime.now().strftime('%Y-%m-%d')}.log"
-# setup_logger(log_file)
 
 def clearscreen():
     """Clear the terminal screen."""
@@ -158,10 +151,6 @@ def json_to_prometheus(data, masterkey=""):
 
                 # remove the base key from anker solix bank
                 parsed_line = f"{json_to_prometheus(metric_values, f'{re.sub(ankerPattern, "", masterkey)}_{metric_name}'+labels)}"
-                # if data.get("type", "") == 'solarbank':
-                    # parsed_line = f"{json_to_prometheus(metric_values, f'{re.sub(ankerPattern, "", masterkey)}_{metric_name}'+labels)}"
-                # else:
-                    # parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}'+labels)}"
             else:
                 parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}')}"
 
@@ -312,11 +301,6 @@ async def main() -> None:
                 # Loop until the current time is within the range
                 while True:
                     try:
-            #            clearscreen()
-                        # Set up the log filename with the current date
-                        # log_file = f"{datetime.now().strftime('%Y-%m-%d')}.log"
-                        # setup_logger(log_file)
-
                         current_unixtime = int(time.time())
                         now = datetime.now().astimezone()
 
@@ -336,12 +320,9 @@ async def main() -> None:
                                 data = {
                                     "base64_attachments": [],
                                     "message": "BATTERY ALMOST FULL / WASTING SOLAR > 100w",
-                                    "number": "+4916091258234",
-                                    "recipients": ["+491736921693"]
+                                    "number": SIGNAL_SENDER,
+                                    "recipients": [SIGNAL_TARGET]
                                 }
-
-#                                response = requests.post(url, json=json.dumps(data), headers=headers)
-#                                CONSOLE.info(now.isoformat()+": Signal response "+ str(response.status_code)+" "+response.text)
 
                         if next_site_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running site refresh...")
@@ -363,9 +344,7 @@ async def main() -> None:
                             sunrise = data_weather['sys']['sunrise']
                             sunset = data_weather['sys']['sunset']
 
-				#curl -s -X POST http://signal-cli-rest-api:8080/v2/send -H 'Accept: application/json' -H 'Content-Type: application/json' -d '{"base64_attachments": [],"message": "Torrent: '$1' size: '$size' Category: '$3' Status: '$4'","number": "+4916091258234","recipients": ["+491736921693"]}'
-
-                            next_dev_refr = now + timedelta(seconds=ANKER_SOLIX_DEVICE_REFRESH_WAITING)
+				next_dev_refr = now + timedelta(seconds=ANKER_SOLIX_DEVICE_REFRESH_WAITING)
 
                         if next_stats_refr <= now: # and sunrise <= current_unixtime <= sunset:
                             CONSOLE.info(now.isoformat()+": Running energy details refresh...")
@@ -398,10 +377,7 @@ async def main() -> None:
                         CONSOLE.exception(now.isoformat()+": %s: %s", type(err), err)
 
                     if int(deviceResponse[ANKER_SOLIX_DUID[:-1]]['charging_status']) not in {7}:
-                    #if int(deviceResponse[ANKER_SOLIX_DUID[:-1]]['charging_status']) == 0 or int(deviceResponse[ANKER_SOLIX_DUID[:-1]]['charging_status']) == 7:
                         time.sleep(LOOP_API_SLEEP_WAITING)
-                    # elif now and sunrise <= current_unixtime <= sunset:
-                    #     time.sleep(LOOP_API_DEEPSLEEP_WAITING*10)
                     else:
                         CONSOLE.info(now.isoformat() +f": Sleeping {LOOP_API_DEEPSLEEP_WAITING} sec charging_status: {deviceResponse[ANKER_SOLIX_DUID[:-1]]['charging_status']}")
                         time.sleep(LOOP_API_DEEPSLEEP_WAITING)
