@@ -308,20 +308,6 @@ async def main() -> None:
                                 deviceResponse = myapi.devices
                                 json.dump(deviceResponse,jsonfile)
 
-
-                                if os.environ["USE_SIGNAL"]:
-					url = os.environ["SIGNAL_API_URL"]"
-	                                headers = {
-	                                    "Accept": "application/json",
-	                                    "Content-Type": "application/json"
-	                                }
-	                                data = {
-	                                    "base64_attachments": [],
-	                                    "message": "BATTERY ALMOST FULL / WASTING SOLAR > 100w",
-	                                    "number": os.environ["SIGNAL_SENDER"],
-	                                    "recipients": os.environ["SIGNAL_TARGET"]
-	                                }
-
                         if next_site_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running site refresh...")
                             await myapi.update_sites()
