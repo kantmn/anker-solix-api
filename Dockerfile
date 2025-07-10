@@ -1,57 +1,43 @@
 FROM python:3.12-slim
 
+# Set environment variables
 ARG ANKERUSER=youranker@emailaccount.com
-ENV ANKERUSER=$ANKERUSER
-
 ARG ANKERPASSWORD=anker_password
-ENV ANKERPASSWORD=$ANKERPASSWORD
-
 ARG ANKERCOUNTRY=de
-ENV ANKERCOUNTRY=$ANKERCOUNTRY
-
 ARG ANKER_SOLIX_DUID=APCGQ80E1234567_
-ENV ANKER_SOLIX_DUID=$ANKER_SOLIX_DUID
-
 ARG USE_SIGNAL=true
-ENV USE_SIGNAL=$USE_SIGNAL
-
 ARG SIGNAL_SENDER=+49123456789
-ENV SIGNAL_SENDER=$SIGNAL_SENDER
-
 ARG SIGNAL_TARGET=+49123456789
-ENV SIGNAL_TARGET=$SIGNAL_TARGET
-
 ARG SIGNAL_API_URL=http://signal-cli-rest-api:8080/v2/send
-ENV SIGNAL_API_URL=$SIGNAL_API_URL
-
 ARG WEATHER_API_URL=https://api.openweathermap.org/data/2.5/weather?lat=11.12345&lon=11.12345&appid=12345678890abcdefgh
-ENV WEATHER_API_URL=$WEATHER_API_URL
 
-# Install dependencies
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+ENV ANKERUSER=$ANKERUSER \
+    ANKERPASSWORD=$ANKERPASSWORD \
+    ANKERCOUNTRY=$ANKERCOUNTRY \
+    ANKER_SOLIX_DUID=$ANKER_SOLIX_DUID \
+    USE_SIGNAL=$USE_SIGNAL \
+    SIGNAL_SENDER=$SIGNAL_SENDER \
+    SIGNAL_TARGET=$SIGNAL_TARGET \
+    SIGNAL_API_URL=$SIGNAL_API_URL \
+    WEATHER_API_URL=$WEATHER_API_URL
 
-# Install pipenv
-RUN pip install pipenv
-
-# Set the working directory
 WORKDIR /app
 
-# Copy the Pipfile and Pipfile.lock to the container
+# Install all dependencies, pipenv, and clone repo in one layer
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    pip install pipenv && \
+    git clone https://github.com/thomluther/anker-solix-api.git /app/anker_api && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy files and install python dependencies
 COPY Pipfile Pipfile.lock script.py /app/
 
-# Clear the lock file and regenerate it
-RUN pipenv lock --clear
+RUN pipenv lock --clear && \
+    pipenv update && \
+    pipenv lock && \
+    pipenv install requests fastapi uvicorn && \
+    pipenv sync -d && \
+    pipenv install --deploy --ignore-pipfile
 
-# Update and sync dependencies
-RUN pipenv update && pipenv lock
-RUN pipenv install requests fastapi uvicorn
-RUN pipenv sync -d
-
-# Clone the repo into the container
-RUN git clone https://github.com/thomluther/anker-solix-api.git /app/anker_api
-
-# Install dependencies using pipenv
-RUN pipenv install --deploy --ignore-pipfile
-
-# Set the entrypoint (adjust to your application)
 CMD ["pipenv", "run", "python", "script.py"]
