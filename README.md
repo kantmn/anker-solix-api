@@ -52,7 +52,7 @@ and add
       - targets: ["ip:5000"]
 ````
 
-#grafana
+# grafana dashboard
 afterwards those metrics can be used e.g. in grafana to display graphs etc
 see an examples here
 <img width="1920" height="1862" alt="Screenshot 2025-07-10 at 16-38-44 Export - Dashboards - Grafana" src="https://github.com/user-attachments/assets/17e585ea-2193-48b6-a61e-f17b984dba42" />
