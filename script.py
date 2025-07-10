@@ -309,8 +309,8 @@ async def main() -> None:
                                 json.dump(deviceResponse,jsonfile)
 
 
-				                if os.environ["USE_SIGNAL"]:
-	                                url = os.environ["SIGNAL_API_URL"]"
+                                if os.environ["USE_SIGNAL"]:
+					url = os.environ["SIGNAL_API_URL"]"
 	                                headers = {
 	                                    "Accept": "application/json",
 	                                    "Content-Type": "application/json"
@@ -342,7 +342,7 @@ async def main() -> None:
                             sunrise = data_weather['sys']['sunrise']
                             sunset = data_weather['sys']['sunset']
 
-				            next_dev_refr = now + timedelta(seconds=ANKER_SOLIX_DEVICE_REFRESH_WAITING)
+                            next_dev_refr = now + timedelta(seconds=ANKER_SOLIX_DEVICE_REFRESH_WAITING)
 
                         if next_stats_refr <= now: # and sunrise <= current_unixtime <= sunset:
                             CONSOLE.info(now.isoformat()+": Running energy details refresh...")
