@@ -150,7 +150,7 @@ def json_to_prometheus(data, masterkey=""):
             else:
                 parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}')}"
 
-            if "strange entry" in parsed_line:
+            if "strange entry" in parsed_line or "anker_solix_api_devices_feature_switch" in parsed_line:
                 parsed_line = "# " + parsed_line
             else:
                 if any(char.isalpha() for char in parsed_line):
