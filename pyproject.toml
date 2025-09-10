@@ -1,0 +1,39 @@
+[project]
+name = "Anker-Solix-Api"
+version = "3.2.0"
+description = "Python library for Anker Solix Power devices (Solarbank, Inverter etc)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dynamic = [ "dependencies" ]
+
+[project.urls]
+"Homepage" = "https://github.com/thomluther/anker-solix-api"
+"Bug Tracker" = "https://github.com/thomluther/anker-solix-api/issues"
+"Discussions" = "https://github.com/thomluther/anker-solix-api/discussions"
+
+[tool.isort]
+profile="black"
+
+[tool.pylint]
+jobs=0
+disable = [
+    "import-error",
+    "line-too-long",
+    "invalid-name",
+    "protected-access",
+]
+
+[tool.poetry.dependencies]
+aiohttp = ">=3.10.11"
+aiofiles = ">=23.2.0"
+cryptography = ">=3.4.8"
+
+
+[tool.poetry]
+package-mode = false
+requires-poetry = ">=2.1"

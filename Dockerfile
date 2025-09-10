@@ -15,21 +15,22 @@ ENV ANKERUSER=$ANKERUSER \
 
 WORKDIR /app
 
-# Install all dependencies, pipenv, and clone repo in one layer
+# Install Poetry
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git && \
-    pip install pipenv && \
+    apt-get install -y --no-install-recommends git curl python3-venv pipx && \
+    pipx install poetry && \
+    ln -s /root/.local/bin/poetry /usr/local/bin/poetry && \
     git clone https://github.com/thomluther/anker-solix-api.git /app/anker_api && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy files and install python dependencies
-COPY Pipfile Pipfile.lock script.py /app/
+# Copy app files
+COPY pyproject.toml script.py /app/
 
-RUN pipenv lock --clear && \
-    pipenv update && \
-    pipenv lock && \
-    pipenv install requests fastapi uvicorn && \
-    pipenv sync -d && \
-    pipenv install --deploy --ignore-pipfile
+# Install dependencies
+RUN poetry install --no-interaction --no-ansi
 
-CMD ["pipenv", "run", "python", "script.py"]
+# Add extra packages manually
+RUN poetry add requests fastapi uvicorn
+
+# Run app
+CMD ["poetry", "run", "python", "script.py"]
