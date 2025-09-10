@@ -1,0 +1,26 @@
+name: Release on Commit
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set date tag
+        id: tag
+        run: |
+          DATE_TAG=$(date +'%Y.%m.%d_%H%M%S')
+          echo "DATE_TAG=$DATE_TAG" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.DATE_TAG }}
+          name: Release ${{ env.DATE_TAG }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
