@@ -39,7 +39,7 @@ jobs:
           #tags: ${{ env.GHCR_IMAGE }}-${{ matrix.arch }}
           #tags: ghcr.io/${{ github.repository }}:${{ matrix.arch }}
           tags: |
-            ghcr.io/${{ github.repository }}:${SHORT_SHA}-${{ matrix.arch }}
+            ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.arch }}
           #outputs: type=image,push-by-digest=true,name-canonical=true
     
   manifest:
