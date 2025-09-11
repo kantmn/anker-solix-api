@@ -71,12 +71,13 @@ jobs:
           echo "Using SHORT_SHA: $SHORT_SHA"
           echo "Using GHCR_IMAGE: $GHCR_IMAGE"
           echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
-
-          docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64
-          docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
-          
+         
           echo "Sleep 10 secs, for the registry to parse the new images"
           sleep 10  # give GHCR a moment
+
+          
+          docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64
+          docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
 
           # latest tag manifest
           docker manifest create ghcr.io/$GHCR_IMAGE:latest \
