@@ -17,7 +17,7 @@ jobs:
 
     env:
       GIT_USER: ${{ secrets.GIT_USER }}
-      IMAGE_NAME: ${{ github.repository.split('/')[1] }}
+      IMAGE_NAME: ${{ github.repository_name }}
       GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
 
     steps:
@@ -49,7 +49,7 @@ jobs:
           docker buildx inspect build_$IMAGE_NAME >/dev/null 2>&1 || \
           docker buildx create --name build_$IMAGE_NAME --use --bootstrap
         env:
-          IMAGE_NAME: ${{ github.repository.split('/')[1] }}
+          IMAGE_NAME: ${{ github.repository_name }}
 
       - name: Build and push architecture-specific image
         run: |
@@ -63,13 +63,13 @@ jobs:
             --push \
             docker-$IMAGE_NAME
         env:
-          IMAGE_NAME: ${{ github.repository.split('/')[1] }}
+          IMAGE_NAME: ${{ github.repository_name }}
           GIT_USER: ${{ secrets.GIT_USER }}
 
       - name: Cleanup builder
         run: docker buildx rm build_$IMAGE_NAME || true
         env:
-          IMAGE_NAME: ${{ github.repository.split('/')[1] }}
+          IMAGE_NAME: ${{ github.repository_name }}
 
     outputs:
       date: ${{ steps.tags.outputs.date }}
