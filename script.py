@@ -143,7 +143,11 @@ def json_to_prometheus(data, masterkey=""):
                 labels = f'{{device_sn="{sn}", alias="{alias}", type="{typ}", status="{status}"}}'
 
                 # remove the base key from anker solix bank
-                parsed_line = f"{json_to_prometheus(metric_values, f'{re.sub(ankerPattern, "", masterkey)}_{metric_name}'+labels)}"
+                parsed_line = json_to_prometheus(
+                    metric_values,
+                    f"{re.sub(ankerPattern, '', masterkey)}_{metric_name}{labels}"
+                )
+
             else:
                 parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}')}"
 
