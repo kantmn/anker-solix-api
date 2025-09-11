@@ -4,10 +4,15 @@ permissions:
   pull-requests: read
   packages: write
 on:
-  workflow_run:
-    workflows: ["Codacy Security Scan"]  # name of the Docker workflow
-    types:
-      - completed
+  push:
+    branches: [ "master" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "master" ]
+  # workflow_run:
+  #   workflows: ["Codacy Security Scan"]  # name of the Docker workflow
+  #   types:
+  #     - completed
 env:
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
 
