@@ -4,7 +4,7 @@
 [![Release building](https://github.com/kantmn/anker-solix-api/actions/workflows/release.yml/badge.svg)](https://github.com/kantmn/anker-solix-api/actions/workflows/release.yml)
 
 # anker-solix-api docker image
-Provides a docker container to run a python 3.12 script with dependencies for https://github.com/thomluther/anker-solix-api
+Provides a docker container to run a python 3.12 script with dependencies for <https://github.com/thomluther/anker-solix-api>
 This docker provides an http service under port http://ip:5000/metrics
 
 
@@ -38,12 +38,12 @@ ANKERCOUNTRY=YOUR_REGION (e.g. DE=Germany)
 ANKER_SOLIX_DUID=YOUR_ANKER_GUID (this removes the APCGQ80E12344567_ from the requests)
 
 WEATHER_API_URL=YOUR_OPENWEATHERMAP_API_URL
-(contains coords and api key, key is free of charge and can be obtainted https://home.openweathermap.org/users/sign_up example for api URL https://api.openweathermap.org/data/2.5/weather?lat=11.23456&lon=22.123456&appid=API_KEY_FROM_OPENWEATHER)
+(contains coords and api key, key is free of charge and can be obtainted https://home.openweathermap.org/users/sign_up> example for api URL <https://api.openweathermap.org/data/2.5/weather?lat=11.23456&lon=22.123456&appid=API_KEY_FROM_OPENWEATHER>)
 ```
 The Script is running in a loop, with sleep time, so only ending when container is stopped, should recover from crash
 
 # prometheus connection
-The metrics is compatible for a prometheus crawling job (https://github.com/prometheus/prometheus)
+The metrics is compatible for a prometheus crawling job (<https://github.com/prometheus/prometheus>)
 
 for example open
 `
