@@ -48,8 +48,8 @@ jobs:
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
             -f ./Dockerfile \
-            -t ghcr.io/${{ github.repository }}:${github.sha}-amd64 \
-            -t ghcr.io/${{ github.repository }}:${github.sha}-arm64 \
+            -t ghcr.io/${{ github.repository }}:${{ github.sha }}-amd64 \
+            -t ghcr.io/${{ github.repository }}:${{ github.sha }}-arm64 \
             -t ghcr.io/${{ github.repository }}:latest \
             --push .
 
