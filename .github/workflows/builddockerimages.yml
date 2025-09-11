@@ -3,6 +3,10 @@ permissions:
   contents: read
   pull-requests: read
 on:
+  workflow_run:
+    workflows: ["Codacy Security Scan"]  # name of the Docker workflow
+    types:
+      - completed
   push:
     branches:
       - master
@@ -52,6 +56,11 @@ jobs:
           IMAGE_NAME: ${{ github.repository_name }}
 
       - name: Build and push architecture-specific image
+        env:
+          IMAGE_NAME: ${{ github.repository_name }}
+          GIT_USER: ${{ secrets.GIT_USER }}
+          DATE_TAG: ${{ steps.tags.outputs.date }}
+          SHORT_SHA: ${{ steps.tags.outputs.sha }}
         run: |
           docker buildx build \
             --builder build_$IMAGE_NAME \
@@ -62,9 +71,6 @@ jobs:
             -t ghcr.io/$GIT_USER/$IMAGE_NAME:${{ steps.tags.outputs.date }}-${{ matrix.arch }} \
             --push \
             docker-$IMAGE_NAME
-        env:
-          IMAGE_NAME: ${{ github.repository_name }}
-          GIT_USER: ${{ secrets.GIT_USER }}
 
       - name: Cleanup builder
         run: docker buildx rm build_$IMAGE_NAME || true
