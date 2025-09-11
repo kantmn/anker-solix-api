@@ -38,7 +38,8 @@ jobs:
           file: Dockerfile
           platforms: linux/${{ matrix.arch }}
           push: true
-          tags: ${{ env.GHCR_IMAGE }}-amd64
+          #tags: ${{ env.GHCR_IMAGE }}-amd64
+          tags: ghcr.io/${{ github.repository }}:${{ matrix.arch }}
           outputs: type=image,push-by-digest=true,name-canonical=true
     
   manifest:
