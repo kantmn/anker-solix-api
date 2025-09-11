@@ -35,9 +35,11 @@ jobs:
           file: Dockerfile
           platforms: linux/${{ matrix.arch }}
           push: true
-          #tags: ${{ env.GHCR_IMAGE }}-amd64
-          tags: ghcr.io/${{ github.repository }}:${{ matrix.arch }}
-          outputs: type=image,push-by-digest=true,name-canonical=true
+          #tags: ${{ env.GHCR_IMAGE }}-${{ matrix.arch }}
+          #tags: ghcr.io/${{ github.repository }}:${{ matrix.arch }}
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ steps.tags.outputs.sha }}-${{ matrix.arch }}
+          #outputs: type=image,push-by-digest=true,name-canonical=true
     
   manifest:
     runs-on: self-hosted
@@ -51,10 +53,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Create and push manifest
+        env:
+          IMAGE_NAME: ${{ github.repository }}
+          SHORT_SHA: ${{ SHORT_SHA }}
+          #SHORT_SHA: ${{ steps.tags.outputs.sha }}
+          DATE_TAG: ${{ steps.tags.outputs.date }}
         run: |
           DATE_TAG=$(date +'%Y-%m-%d')
-          docker buildx imagetools create \
-            -t $GHCR_IMAGE:latest \
-            -t $GHCR_IMAGE:$DATE_TAG \
-            $GHCR_IMAGE-amd64@${{ needs.build-amd64.outputs.digest }} \
-            $GHCR_IMAGE-arm64@${{ needs.build-arm64.outputs.digest }}
+          # latest tag manifest
+          docker manifest create ghcr.io/$GHCR_IMAGE:latest \
+            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
+            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+          docker manifest push ghcr.io/$GHCR_IMAGE:latest
+      
+          # date tag manifest
+          docker manifest create ghcr.io/$GHCR_IMAGE:$DATE_TAG \
+            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
+            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+          docker manifest push ghcr.io/$GHCR_IMAGE:$DATE_TAG
