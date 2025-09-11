@@ -7,9 +7,6 @@ on:
     workflows: ["Codacy Security Scan"]  # name of the Docker workflow
     types:
       - completed
-  push:
-    branches:
-      - master
 env:
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
 
