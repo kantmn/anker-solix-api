@@ -62,12 +62,7 @@ jobs:
           GHCR_IMAGE: ${{ github.repository }}
           SHORT_SHA: ${{ needs.build-multiarch.outputs.sha }}
           DATE_TAG: ${{ needs.build-multiarch.outputs.date }}
-        run: |
-          echo "DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-          echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
-          echo "::set-output name=sha::${GITHUB_SHA:0:7}"
-          echo "::set-output name=date::$(date +'%Y-%m-%d')"
-          
+        run: |          
           # latest tag manifest
           docker manifest create ghcr.io/$GHCR_IMAGE:latest \
             --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
