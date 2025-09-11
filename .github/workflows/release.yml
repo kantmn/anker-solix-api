@@ -10,6 +10,12 @@ on:
       - completed
 
 jobs:
+  follow-up:
+    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do something
+        run: echo "Previous workflow did not fail!"
   release:
     runs-on: self-hosted
     steps:
