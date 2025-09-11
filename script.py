@@ -118,6 +118,7 @@ def setup_logger(log_file):
 
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 
+
 CONSOLE: logging.Logger = common.CONSOLE
 
 def clearscreen():
@@ -148,8 +149,10 @@ def json_to_prometheus(data, masterkey=""):
                 sn, alias, typ, status = data.get("device_sn",""), data.get("alias",""), data.get("type",""), data.get("status_desc","")
                 labels = f'{{device_sn="{sn}", alias="{alias}", type="{typ}", status="{status}"}}'
 
-                # remove the base key from anker solix bank
-                parsed_line = f"{json_to_prometheus(metric_values, f'{re.sub(ankerPattern, "", masterkey)}_{metric_name}'+labels)}"
+                # remove the base key from anker solix bank               
+                metric_key = f"{re.sub(ankerPattern, '', masterkey)}_{metric_name}{labels}"
+                parsed_line = f"{json_to_prometheus(metric_values, metric_key)}"
+
             else:
                 parsed_line = f"{json_to_prometheus(metric_values, f'{masterkey}_{metric_name}')}"
 
