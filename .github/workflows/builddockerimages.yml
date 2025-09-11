@@ -1,6 +1,6 @@
 name: Build and Publish Multi-Arch Docker Image
 permissions:
-  contents: read
+  contents: write
   pull-requests: read
 on:
   workflow_run:
