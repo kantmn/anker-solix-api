@@ -15,6 +15,8 @@ on:
   #     - completed
 env:
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
+  SHA_NAME: "NOT YET SET"
+  DATETIME_TAG: "NOT YET SET"
 
 jobs:
   build-multiarch:
@@ -23,6 +25,17 @@ jobs:
       matrix:
         arch: [amd64, arm64]
     steps:
+      - name: Set sha name
+        id: sha
+        run: |
+          SHA_NAME=${{ github.sha }}
+          echo "SHA_NAME=$SHA_NAME" >> $GITHUB_ENV
+      - name: Set date tag
+        id: tag
+        run: |
+          DATETIME_TAG=$(date +'%Y.%m.%d_%H%M%S')
+          echo "DATETIME_TAG=$DATETIME_TAG" >> $GITHUB_ENV
+          
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
       - name: Login GHCR
@@ -42,7 +55,7 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache,mode=max
           tags: |
-            ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.arch }}
+            ghcr.io/${{ github.repository }}:${{ env.SHA_NAME }}-${{ matrix.arch }}
 
   manifest:
     runs-on: self-hosted
@@ -55,38 +68,32 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set date tag
-        id: tag
-        run: |
-          DATETIME_TAG=$(date +'%Y.%m.%d_%H%M%S')
-          echo "DATETIME_TAG=$DATETIME_TAG" >> $GITHUB_ENV
       - name: Create and push multi-arch manifests
         env:
           GHCR_IMAGE: ${{ github.repository }}
-          SHORT_SHA: ${{ github.sha }}
+          #SHORT_SHA: ${{ github.sha }}
         run: |
-          SHORT_SHA=${SHORT_SHA::7}
-          # DATE_TAG=${date +'%Y.%m.%d_%H%M'}
+          #SHORT_SHA=${SHORT_SHA::7}
 
-          echo "Using SHORT_SHA: $SHORT_SHA"
+          echo "Using SHORT_SHA: ${{ env.SHA_NAME }}"
           echo "Using GHCR_IMAGE: $GHCR_IMAGE"
           echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
          
-          echo "Sleep 10 secs, for the registry to parse the new images"
-          sleep 10  # give GHCR a moment
+          echo "Sleep 5 secs, for the registry to parse the new images"
+          sleep 5  # give GHCR a moment
 
           
-          docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64
-          docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+          docker pull ghcr.io/$GHCR_IMAGE:${{ env.SHA_NAME }}-amd64
+          docker pull ghcr.io/$GHCR_IMAGE:${{ env.SHA_NAME }}-arm64
 
           # latest tag manifest
           docker manifest create ghcr.io/$GHCR_IMAGE:latest \
-            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
-            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+            --amend ghcr.io/$GHCR_IMAGE:${{ env.SHA_NAME }}-amd64 \
+            --amend ghcr.io/$GHCR_IMAGE:${{ env.SHA_NAME }}-arm64
           docker manifest push ghcr.io/$GHCR_IMAGE:latest
 
           # date tag manifest
           docker manifest create ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }} \
-            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
-            --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+            --amend ghcr.io/$GHCR_IMAGE:${{ env.SHA_NAME }}-amd64 \
+            --amend ghcr.io/$GHCR_IMAGE:${{ env.SHA_NAME }}-arm64
           docker manifest push ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }}
