@@ -69,8 +69,8 @@ jobs:
 
       - name: Create multi-arch manifest
         run: |
+          SHORT_SHA=${GITHUB_SHA:0:7}
           docker manifest create ghcr.io/$GIT_USER/$IMAGE_NAME:latest \
-            --amend ghcr.io/$GIT_USER/$IMAGE_NAME:${{ github.sha | slice(0,7) }}-amd64 \
-            --amend ghcr.io/$GIT_USER/$IMAGE_NAME:${{ github.sha | slice(0,7) }}-arm64
-
+            --amend ghcr.io/$GIT_USER/$IMAGE_NAME:${SHORT_SHA}-amd64 \
+            --amend ghcr.io/$GIT_USER/$IMAGE_NAME:${SHORT_SHA}-arm64
           docker manifest push ghcr.io/$GIT_USER/$IMAGE_NAME:latest
