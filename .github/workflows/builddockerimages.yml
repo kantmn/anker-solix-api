@@ -46,19 +46,21 @@ jobs:
       - name: Build and push multi-arch images
         run: |
           #--platform linux/amd64,linux/arm64 \
+          #            -t ghcr.io/${{ github.repository }}:${{ github.sha }}-amd64 \
           docker buildx build \
             --platform linux/arm64 \
             -f ./Dockerfile \
-            -t ghcr.io/${{ github.repository }}:${{ github.sha }}-amd64 \
             -t ghcr.io/${{ github.repository }}:${{ github.sha }}-arm64 \
             -t ghcr.io/${{ github.repository }}:latest \
+            -t ghcr.io/${{ github.repository }}:${{ env.DATETIME_TAG }} \
             --push .
 
-      - name: Create or update release
-        uses: peter-evans/create-or-update-release@v5
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
         with:
           tag_name: ${{ github.sha }}
           release_name: Release ${{ github.sha }}
+          title: ${{ env.DATETIME_TAG }} released
           body: |
             Multi-arch images pushed:
             - latest: https://github.com/${{ github.repository }}/packages/container/${{ github.repository }}
