@@ -8,9 +8,6 @@ on:
     workflows: ["Build and Publish Multi-Arch Docker Image"]  # name of the Docker workflow
     types:
       - completed
-  push:
-    branches:
-      - master
 
 jobs:
   release:
