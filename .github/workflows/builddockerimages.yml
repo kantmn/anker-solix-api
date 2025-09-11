@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
@@ -76,7 +76,7 @@ jobs:
       #       ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.arch }}
 
   manifest:
-    runs-on: self-hosted
+    runs-on: ["self-hosted", "arm64"]
     needs: [build-multiarch]
     steps:   
       - uses: actions/checkout@v4
@@ -94,7 +94,7 @@ jobs:
       - name: Create SHA manifest and push
         run: |
           docker manifest create \
-            my-registry/my-repo:${{ github.sha }} \
+            ghcr.io/${{ github.repository }}:${{ github.sha }} \
             --amend ghcr.io/${{ github.repository }}:${{ github.sha }}-amd64 \
             --amend ghcr.io/${{ github.repository }}:${{ github.sha }}-arm64
           docker manifest push ghcr.io/${{ github.repository }}:${{ github.sha }}
@@ -102,12 +102,24 @@ jobs:
       - name: Create latest manifest and push
         run: |
           docker manifest create \
-            my-registry/my-repo:latest \
+            ghcr.io/${{ github.repository }}:latest \
             --amend ghcr.io/${{ github.repository }}:latest-amd64 \
             --amend ghcr.io/${{ github.repository }}:latest-arm64
           docker manifest push ghcr.io/${{ github.repository }}:latest
 
 
+      - name: Create or update release notes
+        env:
+          SHORT_SHA: ${{ github.sha }}
+          DATE_TAG: ${{ steps.date_tag.outputs.value }}
+          GHCR_IMAGE: ${{ github.repository }}
+        run: |
+          RELEASE_BODY="Multi-arch images pushed:\n
+          - latest: https://github.com/${GHCR_IMAGE}/packages/container/${GHCR_IMAGE}\n
+          - ${{ github.sha }}: https://github.com/${GHCR_IMAGE}/packages/container/${GHCR_IMAGE}?tag=${{ github.sha }}"
+      
+          gh release create $SHORT_SHA --title "Release $SHORT_SHA" --notes "$RELEASE_BODY" || \
+          gh release edit $SHORT_SHA --notes "$RELEASE_BODY"
 
     
       # - uses: docker/setup-buildx-action@v3
