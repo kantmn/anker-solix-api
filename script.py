@@ -8,12 +8,12 @@ import requests
 import logging
 import glob
 import shutil
-import datetime
+#import datetime
 import re
 from collections import defaultdict
 from statistics import median
 from datetime import datetime, timezone, timedelta
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
 import threading
 import asyncio
@@ -32,7 +32,8 @@ import os
 ANKER_SOLIX_DUID = os.environ["ANKER_SOLIX_DUID"] # avoids the solix uids to be part of the key name adjust your value here
 ANKER_SOLIX_SITE_REFRESH_WAITING = 8 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
 ANKER_SOLIX_DEVICE_REFRESH_WAITING = 8 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
-ANKER_SOLIX_ENERGYSTATS_REFRESH_WAITING = 60 # sec to wait before repulling data, note pulling data, does not mean you get new data, sometimes it provides still olds
+ANKER_SOLIX_ENERGYSTATS_REFRESH_WAITING = 60 # sec to wait before repulling data
+#note pulling data, does not mean you get new data, sometimes it provides still olds
 WEATHER_API_URL = os.environ["WEATHER_API_URL"]
 WEATHER_API_REFRESH_WAITING = 60 # every 60s refresh weather from api, get temps, clouds, rain etc, 60s is for free
 LOOP_API_SLEEP_WAITING = 10 # sleep timer to avoid high cpu load
@@ -116,6 +117,7 @@ def setup_logger(log_file):
         shutil.copy(todays_log_file, latest_log_file)
 
 _LOGGER: logging.Logger = logging.getLogger(__name__)
+
 CONSOLE: logging.Logger = common.CONSOLE
 
 def clearscreen():
@@ -143,7 +145,8 @@ def json_to_prometheus(data, masterkey=""):
         for metric_name, metric_values in data.items():
             parsed_line = ""
             if re.search(ankerPattern, masterkey):
-                labels = '{device_sn="'+data.get("device_sn", "")+'", alias="'+data.get("alias", "")+'", type="'+data.get("type", "")+'", status="'+data.get("status_desc", "")+'"}'
+                sn, alias, typ, status = data.get("device_sn",""), data.get("alias",""), data.get("type",""), data.get("status_desc","")
+                labels = f'{{device_sn="{sn}", alias="{alias}", type="{typ}", status="{status}"}}'
 
                 # remove the base key from anker solix bank
                 parsed_line = f"{json_to_prometheus(metric_values, f'{re.sub(ankerPattern, "", masterkey)}_{metric_name}'+labels)}"
@@ -156,7 +159,7 @@ def json_to_prometheus(data, masterkey=""):
                 if any(char.isalpha() for char in parsed_line):
                     prometheus_lines.append(parsed_line)
     elif isinstance(data, bool) or (isinstance(data, str) and data in ["True", "False"]):
-        return f"{masterkey} {1 if data == "True" else 0}"
+        return f"{masterkey} {1 if data == 'True' else 0}"
     elif isinstance(data, list):
         for i, d in enumerate(data):
             parsed_line = f"{json_to_prometheus(d, f'{masterkey}_value_{i}')}"
@@ -365,7 +368,8 @@ async def main() -> None:
                     if int(deviceResponse[ANKER_SOLIX_DUID[:-1]]['charging_status']) not in {7}:
                         time.sleep(LOOP_API_SLEEP_WAITING)
                     else:
-                        CONSOLE.info(now.isoformat() +f": Sleeping {LOOP_API_DEEPSLEEP_WAITING} sec charging_status: {deviceResponse[ANKER_SOLIX_DUID[:-1]]['charging_status']}")
+                        chargingStatus = deviceResponse[ANKER_SOLIX_DUID[:-1]]['charging_status']
+                        CONSOLE.info(now.isoformat() +f": Sleeping {LOOP_API_DEEPSLEEP_WAITING} sec charging_status: {chargingStatus}")
                         time.sleep(LOOP_API_DEEPSLEEP_WAITING)
                 # end of while loop
         except (ClientError, errors.AnkerSolixError) as err:
