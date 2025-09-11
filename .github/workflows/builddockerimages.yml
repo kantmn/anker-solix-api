@@ -34,7 +34,11 @@ jobs:
         shell: bash
 
       - name: Login to GHCR
-        run: echo $GHCR_TOKEN | docker login ghcr.io -u $GIT_USER --password-stdin
+        run: |
+          printf "%s" "$GHCR_TOKEN" | docker login ghcr.io -u "$GIT_USER" --password-stdin
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GIT_USER: ${{ secrets.GIT_USER }}
 
       - name: Pull base image
         run: docker pull python:3.13-slim
