@@ -55,8 +55,8 @@ jobs:
       - name: Create and push manifest
         env:
           IMAGE_NAME: ${{ github.repository }}
-          SHORT_SHA: ${{ SHORT_SHA }}
-          #SHORT_SHA: ${{ steps.tags.outputs.sha }}
+          #SHORT_SHA: ${{ SHORT_SHA }}
+          SHORT_SHA: ${{ steps.tags.outputs.sha }}
           DATE_TAG: ${{ steps.tags.outputs.date }}
         run: |
           DATE_TAG=$(date +'%Y-%m-%d')
