@@ -4,6 +4,10 @@ permissions:
   pull-requests: write
   
 on:
+  workflow_run:
+    workflows: ["Build and Publish Multi-Arch Docker Image"]  # name of the Docker workflow
+    types:
+      - completed
   push:
     branches:
       - master
