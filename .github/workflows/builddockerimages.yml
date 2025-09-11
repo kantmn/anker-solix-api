@@ -69,9 +69,8 @@ jobs:
           # DATE_TAG=${date +'%Y.%m.%d_%H%M'}
 
           echo "Using SHORT_SHA: $SHORT_SHA"
-          echo "Using DATE_TAG: $DATE_TAG"
           echo "Using GHCR_IMAGE: $GHCR_IMAGE"
-          # echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
+          echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
 
           docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64
           docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
@@ -86,7 +85,7 @@ jobs:
           docker manifest push ghcr.io/$GHCR_IMAGE:latest
 
           # date tag manifest
-          docker manifest create ghcr.io/$GHCR_IMAGE:${DATE_TAG} \
+          docker manifest create ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }} \
             --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
             --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
-          docker manifest push ghcr.io/$GHCR_IMAGE:${DATE_TAG}
+          docker manifest push ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }}
