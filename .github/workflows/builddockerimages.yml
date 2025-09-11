@@ -17,78 +17,19 @@ env:
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
 
 jobs:
-  build-multiarch:
-    runs-on: ["self-hosted", "${{ matrix.arch }}"]
-    strategy:
-      matrix:
-        arch: [amd64, arm64]
+  build-and-push:
+    runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v4
-      
-      #- name: Set up QEMU
-        #uses: docker/setup-qemu-action@v3
-        
-      - name: Set up Docker Context for Buildx
-        id: buildx-context
-        run: |
-          docker context inspect builders >/dev/null 2>&1 || docker context create builders
-
-      - uses: docker/setup-buildx-action@v3
-        with:
-          version: latest
-          endpoint: builders
-      - name: Login GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/${{ matrix.arch }}
-          tags: |
-            ghcr.io/${{ github.repository }}:latest-${{ matrix.arch }}
-            ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.arch }}
-            
-      # - uses: actions/checkout@v4
-      # - uses: docker/setup-buildx-action@v3
-      # - name: Login GHCR
-      #   uses: docker/login-action@v3
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Build and push ${{ matrix.arch }} image
-      #   id: build
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: .
-      #     file: Dockerfile
-      #     platforms: linux/${{ matrix.arch }}
-      #     push: true
-      #     cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
-      #     cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache,mode=max
-      #     tags: |
-      #       ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.arch }}
-
-  manifest:
-    runs-on: ["self-hosted", "arm64"]
-    needs: [build-multiarch]
-    steps:
-      - name: Set date tag
-        id: tag
-        run: |
-          DATETIME_TAG=$(date +'%Y.%m.%d_%H%M%S')
-          echo "DATETIME_TAG=$DATETIME_TAG" >> $GITHUB_ENV
       - uses: actions/checkout@v4
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: latest
+
       - name: Login GHCR
         uses: docker/login-action@v3
         with:
@@ -96,91 +37,200 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create SHA manifest and push
+      - name: Set date tag
+        id: tag
         run: |
-          docker manifest create \
-            ghcr.io/${{ github.repository }}:${{ github.sha }} \
-            --amend ghcr.io/${{ github.repository }}:${{ github.sha }}-amd64 \
-            --amend ghcr.io/${{ github.repository }}:${{ github.sha }}-arm64
-          docker manifest push ghcr.io/${{ github.repository }}:${{ github.sha }}
-
-      - name: Create latest manifest and push
+          DATETIME_TAG=$(date +'%Y.%m.%d_%H%M%S')
+          echo "DATETIME_TAG=$DATETIME_TAG" >> $GITHUB_ENV
+          
+      - name: Build and push multi-arch images
         run: |
-          # docker manifest create \
-          #   ghcr.io/${{ github.repository }}:latest \
-          #   --amend ghcr.io/${{ github.repository }}:latest-amd64 \
-          #   --amend ghcr.io/${{ github.repository }}:latest-arm64
-          # docker manifest push ghcr.io/${{ github.repository }}:latest
-
-
-      
-          docker buildx imagetools create -t ghcr.io/${{ github.repository }}:${{ env.DATETIME_TAG }} \
-            ghcr.io/${{ github.repository }}:${SHORT_SHA}-amd64 \
-            ghcr.io/${{ github.repository }}:${SHORT_SHA}-arm64
-      
-          docker buildx imagetools create -t ghcr.io/${{ github.repository }}:latest \
-            ghcr.io/${{ github.repository }}:${SHORT_SHA}-amd64 \
-            ghcr.io/${{ github.repository }}:${SHORT_SHA}-arm64
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \
+            -f ./Dockerfile \
+            -t ghcr.io/${{ github.repository }}:${github.sha}-amd64 \
+            -t ghcr.io/${{ github.repository }}:${github.sha}-arm64 \
+            -t ghcr.io/${{ github.repository }}:latest \
+            --push .
 
       - name: Create or update release notes
         env:
-          SHORT_SHA: ${{ github.sha }}
-          DATE_TAG: ${{ steps.date_tag.outputs.value }}
+          SHORT_SHA: ${{ env.SHORT_SHA }}
+          DATE_TAG: ${{ env.DATETIME_TAG }}
           GHCR_IMAGE: ${{ github.repository }}
         run: |
           RELEASE_BODY="Multi-arch images pushed:\n
           - latest: https://github.com/${GHCR_IMAGE}/packages/container/${GHCR_IMAGE}\n
-          - ${{ github.sha }}: https://github.com/${GHCR_IMAGE}/packages/container/${GHCR_IMAGE}?tag=${{ github.sha }}"
+          - $DATE_TAG: https://github.com/${GHCR_IMAGE}/packages/container/${GHCR_IMAGE}?tag=$DATE_TAG"
       
           gh release create $SHORT_SHA --title "Release $SHORT_SHA" --notes "$RELEASE_BODY" || \
           gh release edit $SHORT_SHA --notes "$RELEASE_BODY"
+          
+# jobs:
+#   build-multiarch:
+#     runs-on: ["self-hosted", "arm64"]
+#     strategy:
+#       matrix:
+#         arch: [amd64, arm64]
+#     steps:
+#       - uses: actions/checkout@v4
+    
+#       - name: Set up QEMU
+#         #uses: docker/setup-qemu-action@v3
+        
+#       - name: Set up Docker Context for Buildx
+#         id: buildx-context
+#         run: |
+#           docker context inspect builders >/dev/null 2>&1 || docker context create builders
+
+#       - uses: docker/setup-buildx-action@v3
+#         with:
+#           version: latest
+#           endpoint: builders
+#       - name: Login GHCR
+#         uses: docker/login-action@v3
+#         with:
+#           registry: ghcr.io
+#           username: ${{ github.actor }}
+#           password: ${{ secrets.GITHUB_TOKEN }}
+
+#       - name: Build and push
+#         uses: docker/build-push-action@v6
+#         with:
+#           context: .
+#           file: ./Dockerfile
+#           platforms: linux/${{ matrix.arch }}
+#           tags: |
+#             ghcr.io/${{ github.repository }}:latest-${{ matrix.arch }}
+#             ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.arch }}
+            
+#       # - uses: actions/checkout@v4
+#       # - uses: docker/setup-buildx-action@v3
+#       # - name: Login GHCR
+#       #   uses: docker/login-action@v3
+#       #   with:
+#       #     registry: ghcr.io
+#       #     username: ${{ github.actor }}
+#       #     password: ${{ secrets.GITHUB_TOKEN }}
+#       # - name: Build and push ${{ matrix.arch }} image
+#       #   id: build
+#       #   uses: docker/build-push-action@v6
+#       #   with:
+#       #     context: .
+#       #     file: Dockerfile
+#       #     platforms: linux/${{ matrix.arch }}
+#       #     push: true
+#       #     cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
+#       #     cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache,mode=max
+#       #     tags: |
+#       #       ghcr.io/${{ github.repository }}:${{ github.sha }}-${{ matrix.arch }}
+
+#   manifest:
+#     runs-on: ["self-hosted", "arm64"]
+#     needs: [build-multiarch]
+#     steps:
+#       - name: Set date tag
+#         id: tag
+#         run: |
+#           DATETIME_TAG=$(date +'%Y.%m.%d_%H%M%S')
+#           echo "DATETIME_TAG=$DATETIME_TAG" >> $GITHUB_ENV
+#       - uses: actions/checkout@v4
+
+#       - name: Set up QEMU
+#         uses: docker/setup-qemu-action@v3
+
+#       - name: Login GHCR
+#         uses: docker/login-action@v3
+#         with:
+#           registry: ghcr.io
+#           username: ${{ github.actor }}
+#           password: ${{ secrets.GITHUB_TOKEN }}
+
+#       - name: Create SHA manifest and push
+#         run: |
+#           docker manifest create \
+#             ghcr.io/${{ github.repository }}:${{ github.sha }} \
+#             --amend ghcr.io/${{ github.repository }}:${{ github.sha }}-amd64 \
+#             --amend ghcr.io/${{ github.repository }}:${{ github.sha }}-arm64
+#           docker manifest push ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+#       - name: Create latest manifest and push
+#         run: |
+#           # docker manifest create \
+#           #   ghcr.io/${{ github.repository }}:latest \
+#           #   --amend ghcr.io/${{ github.repository }}:latest-amd64 \
+#           #   --amend ghcr.io/${{ github.repository }}:latest-arm64
+#           # docker manifest push ghcr.io/${{ github.repository }}:latest
+
+
+      
+#           docker buildx imagetools create -t ghcr.io/${{ github.repository }}:${{ env.DATETIME_TAG }} \
+#             ghcr.io/${{ github.repository }}:${SHORT_SHA}-amd64 \
+#             ghcr.io/${{ github.repository }}:${SHORT_SHA}-arm64
+      
+#           docker buildx imagetools create -t ghcr.io/${{ github.repository }}:latest \
+#             ghcr.io/${{ github.repository }}:${SHORT_SHA}-amd64 \
+#             ghcr.io/${{ github.repository }}:${SHORT_SHA}-arm64
+
+#       - name: Create or update release notes
+#         env:
+#           SHORT_SHA: ${{ github.sha }}
+#           DATE_TAG: ${{ steps.date_tag.outputs.value }}
+#           GHCR_IMAGE: ${{ github.repository }}
+#         run: |
+#           RELEASE_BODY="Multi-arch images pushed:\n
+#           - latest: https://github.com/${GHCR_IMAGE}/packages/container/${GHCR_IMAGE}\n
+#           - ${{ github.sha }}: https://github.com/${GHCR_IMAGE}/packages/container/${GHCR_IMAGE}?tag=${{ github.sha }}"
+      
+#           gh release create $SHORT_SHA --title "Release $SHORT_SHA" --notes "$RELEASE_BODY" || \
+#           gh release edit $SHORT_SHA --notes "$RELEASE_BODY"
 
     
-      # - uses: docker/setup-buildx-action@v3
-      # - name: Login GHCR
-      #   uses: docker/login-action@v3
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Set date tag
-      #   id: tag
-      #   run: |
-      #     DATETIME_TAG=$(date +'%Y.%m.%d_%H%M%S')
-      #     echo "DATETIME_TAG=$DATETIME_TAG" >> $GITHUB_ENV
-      # - name: Create and push multi-arch manifests
-      #   env:
-      #     GHCR_IMAGE: ${{ github.repository }}
-      #     SHORT_SHA: ${{ github.sha }}
-      #   run: |
-      #     #SHORT_SHA=${SHORT_SHA::7}
-      #     # DATE_TAG=${date +'%Y.%m.%d_%H%M'}
+#       # - uses: docker/setup-buildx-action@v3
+#       # - name: Login GHCR
+#       #   uses: docker/login-action@v3
+#       #   with:
+#       #     registry: ghcr.io
+#       #     username: ${{ github.actor }}
+#       #     password: ${{ secrets.GITHUB_TOKEN }}
+#       # - name: Set date tag
+#       #   id: tag
+#       #   run: |
+#       #     DATETIME_TAG=$(date +'%Y.%m.%d_%H%M%S')
+#       #     echo "DATETIME_TAG=$DATETIME_TAG" >> $GITHUB_ENV
+#       # - name: Create and push multi-arch manifests
+#       #   env:
+#       #     GHCR_IMAGE: ${{ github.repository }}
+#       #     SHORT_SHA: ${{ github.sha }}
+#       #   run: |
+#       #     #SHORT_SHA=${SHORT_SHA::7}
+#       #     # DATE_TAG=${date +'%Y.%m.%d_%H%M'}
 
-      #     echo "Using SHORT_SHA: $SHORT_SHA"
-      #     echo "Using GHCR_IMAGE: $GHCR_IMAGE"
-      #     echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
+#       #     echo "Using SHORT_SHA: $SHORT_SHA"
+#       #     echo "Using GHCR_IMAGE: $GHCR_IMAGE"
+#       #     echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
          
-      #     #echo "Sleep 10 secs, for the registry to parse the new images"
-      #     #sleep 10  # give GHCR a moment          
-      #     #docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64
-      #     #docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+#       #     #echo "Sleep 10 secs, for the registry to parse the new images"
+#       #     #sleep 10  # give GHCR a moment          
+#       #     #docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64
+#       #     #docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
 
-      #     docker buildx build \
-      #       --platform linux/amd64,linux/arm64 \
-      #       -t ghcr.io/$GHCR_IMAGE:${SHORT_SHA} \
-      #       -t ghcr.io/$GHCR_IMAGE:latest \
-      #       -t ghcr.io/$GHCR_IMAGE:$DATETIME_TAG \
-      #       --push .
+#       #     docker buildx build \
+#       #       --platform linux/amd64,linux/arm64 \
+#       #       -t ghcr.io/$GHCR_IMAGE:${SHORT_SHA} \
+#       #       -t ghcr.io/$GHCR_IMAGE:latest \
+#       #       -t ghcr.io/$GHCR_IMAGE:$DATETIME_TAG \
+#       #       --push .
 
 
-      #     # latest tag manifest
-      #     docker manifest create ghcr.io/$GHCR_IMAGE:latest \
-      #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
-      #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
-      #     docker manifest push ghcr.io/$GHCR_IMAGE:latest
+#       #     # latest tag manifest
+#       #     docker manifest create ghcr.io/$GHCR_IMAGE:latest \
+#       #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
+#       #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+#       #     docker manifest push ghcr.io/$GHCR_IMAGE:latest
 
-      #     # date tag manifest
-      #     docker manifest create ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }} \
-      #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
-      #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
-      #     docker manifest push ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }}
+#       #     # date tag manifest
+#       #     docker manifest create ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }} \
+#       #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64 \
+#       #       --amend ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
+#       #     docker manifest push ghcr.io/$GHCR_IMAGE:${{ env.DATETIME_TAG }}
