@@ -59,7 +59,7 @@ jobs:
         env:
           GHCR_IMAGE: ${{ github.repository }}
           SHORT_SHA: ${{ github.sha }}
-          DATE_TAG: $(date +'%Y.%m.%d_%H%M')
+          DATE_TAG: ${date +'%Y.%m.%d_%H%M'}
         run: |
           SHORT_SHA=${SHORT_SHA::7}
           #DATE_TAG=${date +'%Y.%m.%d_%H%M'}
