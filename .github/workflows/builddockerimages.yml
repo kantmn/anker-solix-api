@@ -1,0 +1,76 @@
+name: Build and Push Multi-Arch Docker Image
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docker-build:
+    runs-on: ["self-hosted", "${{ matrix.arch }}"]
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
+
+    env:
+      GIT_USER: ${{ secrets.GIT_USER }}
+      IMAGE_NAME: my-image        # change to your image name
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set tags
+        id: tag
+        run: |
+          DATE_TAG=$(date +'%Y-%m-%d')
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          echo "DATE_TAG=$DATE_TAG" >> $GITHUB_ENV
+          echo "COMMIT_TAG=$SHORT_SHA" >> $GITHUB_ENV
+
+      - name: Login to GHCR
+        run: echo $GHCR_TOKEN | docker login ghcr.io -u $GIT_USER --password-stdin
+
+      - name: Pull base image
+        run: docker pull python:3.13-slim
+
+      - name: Setup buildx builder
+        run: |
+          docker buildx inspect build_$IMAGE_NAME >/dev/null 2>&1 || \
+          docker buildx create --name build_$IMAGE_NAME --use --bootstrap
+
+      - name: Build and push architecture-specific image
+        run: |
+          docker buildx build \
+            --builder build_$IMAGE_NAME \
+            --platform linux/${{ matrix.arch }} \
+            --cache-from=type=registry,ref=ghcr.io/$GIT_USER/$IMAGE_NAME:cache \
+            --cache-to=type=registry,ref=ghcr.io/$GIT_USER/$IMAGE_NAME:cache,mode=max \
+            -t ghcr.io/$GIT_USER/$IMAGE_NAME:${{ env.COMMIT_TAG }}-${{ matrix.arch }} \
+            -t ghcr.io/$GIT_USER/$IMAGE_NAME:${{ env.DATE_TAG }}-${{ matrix.arch }} \
+            --push \
+            docker-$IMAGE_NAME
+
+      - name: Cleanup builder
+        run: docker buildx rm build_$IMAGE_NAME || true
+
+  docker-manifest:
+    needs: docker-build
+    runs-on: self-hosted
+    env:
+      GIT_USER: ${{ secrets.GIT_USER }}
+      IMAGE_NAME: my-image
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+    steps:
+      - name: Login to GHCR
+        run: echo $GHCR_TOKEN | docker login ghcr.io -u $GIT_USER --password-stdin
+
+      - name: Create multi-arch manifest
+        run: |
+          docker manifest create ghcr.io/$GIT_USER/$IMAGE_NAME:latest \
+            --amend ghcr.io/$GIT_USER/$IMAGE_NAME:${{ github.sha | slice(0,7) }}-amd64 \
+            --amend ghcr.io/$GIT_USER/$IMAGE_NAME:${{ github.sha | slice(0,7) }}-arm64
+
+          docker manifest push ghcr.io/$GIT_USER/$IMAGE_NAME:latest
