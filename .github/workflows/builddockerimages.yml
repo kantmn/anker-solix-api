@@ -1,7 +1,8 @@
 name: Build and Publish Multi-Arch Docker Image
 permissions:
-  contents: write
+  contents: read
   pull-requests: read
+  packages: write
 on:
   workflow_run:
     workflows: ["Codacy Security Scan"]  # name of the Docker workflow
