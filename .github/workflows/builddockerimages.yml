@@ -58,15 +58,13 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          tag_name: ${{ github.sha }}
-          release_name: Release ${{ github.sha }}
           title: ${{ env.DATETIME_TAG }} released
           body: |
             Multi-arch images pushed:
             - latest: https://github.com/${{ github.repository }}/packages/container/${{ github.repository }}
             - ${{ env.DATETIME_TAG }}: https://github.com/${{ github.repository }}/packages/container/${{ github.repository }}?tag=${{ env.DATETIME_TAG }}
           draft: false
-          prerelease: false
+      
           
 # jobs:
 #   build-multiarch:
