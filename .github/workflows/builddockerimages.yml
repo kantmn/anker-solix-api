@@ -1,4 +1,4 @@
-name: Build and Publish Docker Image
+name: Build and Publish Multi-Arch Docker Image
 permissions:
   contents: read
   pull-requests: read
@@ -17,7 +17,7 @@ jobs:
 
     env:
       GIT_USER: ${{ secrets.GIT_USER }}
-      IMAGE_NAME: my-image        # change to your image name
+      IMAGE_NAME: ${{ github.repository_name }}
       GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
 
     steps:
