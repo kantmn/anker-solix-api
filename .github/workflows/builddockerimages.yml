@@ -66,12 +66,12 @@ jobs:
           SHORT_SHA: ${{ github.sha }}
         run: |
           SHORT_SHA=${SHORT_SHA::7}
-          DATE_TAG=${date +'%Y.%m.%d_%H%M'}
+          # DATE_TAG=${date +'%Y.%m.%d_%H%M'}
 
           echo "Using SHORT_SHA: $SHORT_SHA"
           echo "Using DATE_TAG: $DATE_TAG"
           echo "Using GHCR_IMAGE: $GHCR_IMAGE"
-          echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
+          # echo "Using DATETIME_TAG: ${{ env.DATETIME_TAG }}"
 
           docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-amd64
           docker pull ghcr.io/$GHCR_IMAGE:${SHORT_SHA}-arm64
