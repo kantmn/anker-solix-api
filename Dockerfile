@@ -18,7 +18,7 @@ WORKDIR /app
 # Install Poetry
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git curl python3-venv pipx && \
-    pipx install poetry cryptography aiohttp aiofiles paho-mqtt && \
+    pipx install poetry && \
     ln -s /root/.local/bin/poetry /usr/local/bin/poetry && \
     git clone https://github.com/thomluther/anker-solix-api.git /app/anker_api && \
     rm -rf /var/lib/apt/lists/*
