@@ -30,7 +30,7 @@ COPY pyproject.toml script.py /app/
 RUN poetry install --no-interaction --no-ansi
 
 # Add extra packages manually
-RUN poetry add requests fastapi uvicorn
+RUN poetry add requests fastapi uvicorn paho-mqtt
 
 # Run app
 CMD ["poetry", "run", "python", "script.py"]
