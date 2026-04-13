@@ -1,36 +1,42 @@
 name: Release on Commit
+
 permissions:
   contents: write
   pull-requests: write
-  
+
 on:
-  workflow_run:
-    workflows: ["Build and Publish Multi-Arch Docker Image"]  # name of the Docker workflow
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
-  follow-up:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Do something
-        run: echo "Previous workflow did not fail!"
   release:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set date tag
-        id: tag
         run: |
           DATE_TAG=$(date +'%Y.%m.%d_%H%M%S')
           echo "DATE_TAG=$DATE_TAG" >> $GITHUB_ENV
+
+      - name: Get changed files
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | sed 's/^/- /')
+          echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$CHANGED_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.DATE_TAG }}
           name: Release ${{ env.DATE_TAG }}
+          body: |
+            ## Changed files
+            ${{ env.CHANGED_FILES }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
