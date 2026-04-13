@@ -1,6 +1,4 @@
 [![Security Scan](https://github.com/kantmn/anker-solix-api/actions/workflows/codacy.yml/badge.svg)](https://github.com/kantmn/anker-solix-api/actions/workflows/codacy.yml)
-[![CodeQL](https://github.com/kantmn/anker-solix-api/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/kantmn/anker-solix-api/actions/workflows/github-code-scanning/codeql)
-[![Dependabot](https://github.com/kantmn/anker-solix-api/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/kantmn/anker-solix-api/actions/workflows/dependabot/dependabot-updates)
 [![Release building](https://github.com/kantmn/anker-solix-api/actions/workflows/release.yml/badge.svg)](https://github.com/kantmn/anker-solix-api/actions/workflows/release.yml)
 
 # anker-solix-api docker image
