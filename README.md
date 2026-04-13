@@ -1,6 +1,3 @@
-[![Security Scan](https://github.com/kantmn/anker-solix-api/actions/workflows/codacy.yml/badge.svg)](https://github.com/kantmn/anker-solix-api/actions/workflows/codacy.yml)
-[![Release building](https://github.com/kantmn/anker-solix-api/actions/workflows/release.yml/badge.svg)](https://github.com/kantmn/anker-solix-api/actions/workflows/release.yml)
-
 # anker-solix-api docker image
 Provides a docker container to run a python 3.13 script with dependencies for <https://github.com/thomluther/anker-solix-api>
 This docker provides an http service under port http://ip:5000/metrics
