@@ -321,7 +321,7 @@ async def main() -> None:
                         if next_weather_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running weather refresh...")
                             data_weather = requests.get(WEATHER_API_URL).json()
-                            
+
                             with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'w') as jsonfile:
                                 json.dump(data_weather,jsonfile)
                             next_weather_refr = now + timedelta(seconds=WEATHER_API_REFRESH_WAITING)
@@ -345,7 +345,7 @@ async def main() -> None:
                         # Replace with the desired minute
                         if current_minute == 13 and current_unixtime > sunrise and current_unixtime < sunset:
                             pvgis_calculate_day()
-                        
+
                         ########## READ FILEs here and combine
 
                         # Open the JSON file and read its contents
