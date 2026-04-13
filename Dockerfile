@@ -1,37 +1,36 @@
-# updated for upstream release 3.5.3
-FROM python:3.13-slim
+# ---------- Stage 1: Build dependencies ----------
+FROM python:3.14-slim AS builder
 
-# Set environment variables
-ARG ANKERUSER=youranker@emailaccount.com
-ARG ANKERPASSWORD=anker_password
-ARG ANKERCOUNTRY=de
-ARG ANKER_SOLIX_DUID=APCGQ80E1234567_
-ARG WEATHER_API_URL=https://api.openweathermap.org/data/2.5/weather?lat=11.12345&lon=11.12345&appid=12345678890abcdefgh
-
-ENV ANKERUSER=$ANKERUSER \
-    ANKERPASSWORD=$ANKERPASSWORD \
-    ANKERCOUNTRY=$ANKERCOUNTRY \
-    ANKER_SOLIX_DUID=$ANKER_SOLIX_DUID \
-    WEATHER_API_URL=$WEATHER_API_URL
-
+# Set the working directory
 WORKDIR /app
+ENV POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_NO_INTERACTION=1
 
-# Install Poetry
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends git curl python3-venv pipx && \
-    pipx install poetry && \
-    ln -s /root/.local/bin/poetry /usr/local/bin/poetry && \
-    git clone https://github.com/thomluther/anker-solix-api.git /app/anker_api && \
-    rm -rf /var/lib/apt/lists/*
-
-# Copy app files
-COPY pyproject.toml script.py /app/
+# Copy only dependency files first (for caching)
+COPY anker-solix-api/pyproject.toml ./
 
 # Install dependencies
-RUN poetry install --no-interaction --no-ansi
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH="/root/.local/bin:$PATH"
 
-# Add extra packages manually
-RUN poetry add requests fastapi uvicorn paho-mqtt
+RUN poetry install --only main
+RUN poetry add requests fastapi uvicorn
 
-# Run app
-CMD ["poetry", "run", "python", "script.py"]
+# ---------- Stage 2: Runtime ----------
+FROM python:3.14-slim
+
+# Set the working directory
+WORKDIR /app
+ENV PYTHONPATH=/app
+
+# Copy installed packages from builder
+COPY --from=builder /usr/local/lib/python3.14 /usr/local/lib/python3.14
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy app code
+COPY anker-solix-api /app/anker_api
+COPY script.py /app/
+
+# Set the entrypoint (adjust to your application)
+CMD ["python", "script.py"]
