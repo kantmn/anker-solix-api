@@ -1,5 +1,5 @@
 # anker-solix-api docker image
-Provides a docker container to run a python 3.13 script with dependencies for <https://github.com/thomluther/anker-solix-api>
+Provides a docker container to run a python 3.12 script with dependencies for https://github.com/thomluther/anker-solix-api
 This docker provides an http service under port http://ip:5000/metrics
 
 
@@ -13,32 +13,28 @@ docker pull ghcr.io/kantmn/anker-solix-api:latest
 if you want to use fixed version use
  
 ``
-docker pull ghcr.io/kantmn/anker-solix-api:yyyy.mm
+docker pull ghcr.io/kantmn/anker-solix-api:v1.2.3.
 ``
 
 Map path from container 
-> /logs
+> /app
 
-This will locate the log metrics only
+to your local path where the anker-solix-api is available, you can get it via
+The Git repo from thomluther/anker-solix-api is already included in the image.
 
+The container will launch the file and use the api inside the folder anker_api
+> script.py
 
-Add and fille the following Docker Env variables as needed
-```
-ANKERUSER=YOUR_ANKER_LOGIN_EMAIL
+inside the /app path on startup.
 
-ANKERPASSWORD=YOU_ANKER_PASSWORD
+An example for this script is inside this repo, adjust it to your needs
+The example script, needs to be added anker account credentials, see comments on the first lines
+Script is running in a loop, with sleep time, so only ending when container is stopped, should recover from crash
 
-ANKERCOUNTRY=YOUR_REGION (e.g. DE=Germany)
-
-ANKER_SOLIX_DUID=YOUR_ANKER_GUID (this removes the APCGQ80E12344567_ from the requests)
-
-WEATHER_API_URL=YOUR_OPENWEATHERMAP_API_URL
-(contains coords and api key, key is free of charge and can be obtainted https://home.openweathermap.org/users/sign_up> example for api URL <https://api.openweathermap.org/data/2.5/weather?lat=11.23456&lon=22.123456&appid=API_KEY_FROM_OPENWEATHER>)
-```
-The Script is running in a loop, with sleep time, so only ending when container is stopped, should recover from crash
+you may have to change the paths inside the script to /app to work
 
 # prometheus connection
-The metrics is compatible for a prometheus crawling job (<https://github.com/prometheus/prometheus>)
+The metrics is compatible for a prometheus crawling job (https://github.com/prometheus/prometheus)
 
 for example open
 `
@@ -52,7 +48,7 @@ and add
       - targets: ["ip:5000"]
 ````
 
-# grafana dashboard
+#grafana
 afterwards those metrics can be used e.g. in grafana to display graphs etc
 see an examples here
-<img width="1920" height="1862" alt="Screenshot 2025-07-10 at 16-38-44 Export - Dashboards - Grafana" src="https://github.com/user-attachments/assets/17e585ea-2193-48b6-a61e-f17b984dba42" />
+![image](https://github.com/user-attachments/assets/87830c99-2b4a-42ce-aa7c-017fdc85151f)
