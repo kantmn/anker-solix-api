@@ -8,12 +8,14 @@ import requests
 import logging
 import glob
 import shutil
-import datetime
+# add this import near the other imports
+import traceback
+#import datetime
 import re
 from collections import defaultdict
 from statistics import median
 from datetime import datetime, timezone, timedelta
-from fastapi import FastAPI
+from fastapi import FastAPI,HTTPException
 from fastapi.responses import PlainTextResponse
 import threading
 import asyncio
@@ -63,12 +65,13 @@ the Anker App since it will be kicked out on each refresh.
 
 # Add the anker_solix_api_latest directory to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'anker_api')))
-from anker_api.api import api, errors  # pylint: disable=no-name-in-module
-from anker_api.api.apitypes import (  # pylint: disable=no-name-in-module
+
+from anker_solix_api import api, errors  # pylint: disable=no-name-in-module
+from anker_solix_api.apitypes import (  # pylint: disable=no-name-in-module
     SolarbankRatePlan,
     SolarbankUsageMode,
 )
-import anker_api.common as common
+import common as common
 
 # initial cleaning logs
 def delete_old_logs(directory, days=LOG_RETENTION_TIME):
@@ -305,25 +308,34 @@ async def main() -> None:
                             CONSOLE.info(now.isoformat()+": Running device details refresh...")
                             await myapi.update_device_details()
 
-                            with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'w') as jsonfile:
-                                deviceResponse = myapi.devices
-                                json.dump(deviceResponse,jsonfile)
+                            try:
+                                with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'w') as jsonfile:
+                                    deviceResponse = myapi.devices
+                                    json.dump(deviceResponse,jsonfile)
+                            except json.JSONDecodeError:
+                                metrics_device_details = {}
 
                         if next_site_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running site refresh...")
                             await myapi.update_sites()
 
-                            with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'w') as jsonfile:
-                                siteResponse = myapi.sites
-                                json.dump(siteResponse,jsonfile)
+                            try:
+                                with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'w') as jsonfile:
+                                    siteResponse = myapi.sites
+                                    json.dump(siteResponse,jsonfile)
+                            except json.JSONDecodeError:
+                                siteResponse = {}
                             next_site_refr = now + timedelta(seconds=ANKER_SOLIX_SITE_REFRESH_WAITING)
 
                         if next_weather_refr <= now:
                             CONSOLE.info(now.isoformat()+": Running weather refresh...")
                             data_weather = requests.get(WEATHER_API_URL).json()
 
-                            with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'w') as jsonfile:
-                                json.dump(data_weather,jsonfile)
+                            try:
+                                with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'w') as jsonfile:
+                                    json.dump(data_weather,jsonfile)
+                            except json.JSONDecodeError:
+                                data_weather = {}
                             next_weather_refr = now + timedelta(seconds=WEATHER_API_REFRESH_WAITING)
 
                             # Extract sunrise and sunset times
@@ -350,13 +362,25 @@ async def main() -> None:
 
                         # Open the JSON file and read its contents
                         with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'r') as file:
-                            metrics_weather = json.load(file)
+                            try:
+                                metrics_weather = json.load(file)
+                            except (FileNotFoundError, json.JSONDecodeError):
+                                metrics_weather = {}
                         with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'r') as file:
-                            metrics_sites = json.load(file)
+                            try:
+                                metrics_sites = json.load(file)
+                            except (FileNotFoundError, json.JSONDecodeError):
+                                metrics_sites = {}
                         with open(os.path.join(LOG_DIR, "metrics_energy_details.json"), 'r') as file:
-                            metrics_energy = json.load(file)
+                            try:
+                                metrics_energy = json.load(file)
+                            except (FileNotFoundError, json.JSONDecodeError):
+                                metrics_energy = {}
                         with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'r') as file:
-                            metrics_device_details = json.load(file)
+                            try:
+                                metrics_device_details = json.load(file)
+                            except (FileNotFoundError, json.JSONDecodeError):
+                                metrics_device_details = {}
                     except Exception as err:
                         if "connect" in str(type(err)).lower():
                             print(f"Connection error: {err}. Type:{str(type(err)).lower()} The connection was reset by the peer. Retrying...")
@@ -389,25 +413,47 @@ def run_uvicorn():
 
 @app.get("/metrics", response_class=PlainTextResponse)
 async def get_metrics():
-    # Open the JSON file and read its contents
-    with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'r') as file:
-        metrics_weather = json.load(file)
-    with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'r') as file:
-        metrics_sites = json.load(file)
-    with open(os.path.join(LOG_DIR, "metrics_energy_details.json"), 'r') as file:
-        metrics_energy = json.load(file)
-    with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'r') as file:
-        metrics_device_details = json.load(file)
+    try:
+        # Open the JSON file and read its contents
+        try:
+            with open(os.path.join(LOG_DIR, "metrics_weather.json"), 'r') as file:
+                metrics_weather = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            metrics_weather = {}
+        try:
+            with open(os.path.join(LOG_DIR, "metrics_sites.json"), 'r') as file:
+                metrics_sites = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            metrics_sites = {}
+        try:
+            with open(os.path.join(LOG_DIR, "metrics_energy_details.json"), 'r') as file:
+                metrics_energy = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            metrics_energy = {}
+        try:
+            with open(os.path.join(LOG_DIR, "metrics_device_details.json"), 'r') as file:
+                metrics_device_details = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            metrics_device_details = {}
 
-    results = "\n".join([
-        json_to_prometheus(metrics_weather, "open_weather_api"),
-        json_to_prometheus(metrics_sites, "anker_solix_api_sites"),
-        json_to_prometheus(metrics_energy, "anker_solix_api_energy"),
-        json_to_prometheus(metrics_device_details, "anker_solix_api_devices"),
-        pvgis_read_calulations()
-    ])
-    return f"{results}"
+        results = "\n".join([
+            json_to_prometheus(metrics_weather, "open_weather_api"),
+            json_to_prometheus(metrics_sites, "anker_solix_api_sites"),
+            json_to_prometheus(metrics_energy, "anker_solix_api_energy"),
+            json_to_prometheus(metrics_device_details, "anker_solix_api_devices"),
+            pvgis_read_calulations()
+        ])
+        return f"{results}"
+        
+    except Exception:
+        error = traceback.format_exc()
+        logging.exception("Error in /metrics:\n%s", error)
 
+        return PlainTextResponse(
+            error,
+            status_code=500,
+        )
+    
 
 # run async main
 if __name__ == "__main__":
@@ -416,3 +462,12 @@ if __name__ == "__main__":
 
     if not asyncio.run(main(), debug=False):
         CONSOLE.warning("\nAborted!")
+
+
+
+
+
+
+
+
+
