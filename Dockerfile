@@ -1,5 +1,5 @@
 # ---------- Stage 1: Build dependencies ----------
-FROM python:3.13-slim AS builder
+FROM python:3.15-slim AS builder
 
 # Set the working directory
 WORKDIR /app
@@ -20,7 +20,7 @@ RUN poetry install --only main --no-root
 RUN poetry add requests fastapi uvicorn
 
 # ---------- Stage 2: Runtime ----------
-FROM python:3.13-slim
+FROM python:3.15-slim
 
 # Set the working directory
 WORKDIR /app
